@@ -410,20 +410,26 @@ h1,h2,h3,h4,.rolel,.sub,.gintro,.note,.statement p,.card p,.card .line,.gmeta b,
 .gwait[hidden]{display:none}
 @media (max-width:520px){.gctl{flex-wrap:wrap}.gctl .more.yt{display:inline-block;margin-left:0;flex-basis:100%;width:max-content;max-width:100%;margin-top:4px}}
 
-/* film modal */
+/* film modal
+   The player itself is never smaller than 200x200 (YouTube's minimum); on a narrow screen the extra height
+   becomes black bars inside the player. When the screen is too short, the dialog scrolls and the top bar
+   (title, YouTube link, close) stays pinned, so the way out is always visible. */
 html.modal{overflow:hidden}
-dialog.film{padding:0;border:0;background:transparent;color:#efe9df;max-width:94vw;max-height:none;width:min(1100px,94vw);overflow:visible}
-dialog.film.tall{width:min(94vw,calc(min(100dvh - 96px,1000px)*9/16),440px)}
+dialog.film{padding:0;border:0;background:transparent;color:#efe9df;margin:auto;
+ width:min(1100px,94vw);max-width:94vw;max-height:calc(100dvh - 16px);overflow:auto;overscroll-behavior:contain}
+dialog.film.tall{width:min(94vw,max(300px,calc(min(100dvh - 96px,1000px)*9/16)))}
 dialog.film::backdrop{background:rgba(6,5,4,.9)}
-.fbar{display:flex;align-items:center;gap:10px;margin-bottom:10px;min-width:0}
+.fguard{position:absolute;top:0;left:0;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.fbar{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:0 0 10px;min-width:0;background:linear-gradient(rgba(6,5,4,.96) 75%,rgba(6,5,4,0))}
 .fbar b{flex:1;min-width:0;font-weight:600;font-size:.95rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .fyt{flex:none;font-size:.82rem;color:#efe9df;text-decoration:none;border:1px solid rgba(255,255,255,.35);padding:8px 14px;border-radius:999px}
 .fyt:hover{border-color:var(--accent);color:var(--accent)}
 .fx{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(12,11,10,.7);color:#fff;cursor:pointer;font-size:1rem}
 .fx:hover{border-color:var(--accent);color:var(--accent)}
 .fyt:focus-visible,.fx:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.fbox{background:#000;aspect-ratio:16/9;width:min(100%,calc((100dvh - 96px)*16/9));margin:0 auto}
-dialog.film.tall .fbox{aspect-ratio:9/16;width:100%}
+.fbox{background:#000;margin:0 auto;aspect-ratio:16/9;min-height:200px;
+ width:max(200px,min(100%,calc((100dvh - 96px)*16/9)))}
+dialog.film.tall .fbox{aspect-ratio:9/16;min-height:0;width:max(200px,min(100%,calc((100dvh - 96px)*9/16)))}
 .fbox iframe{width:100%;height:100%;border:0;display:block}
 @media (max-width:520px){.fyt{padding:7px 11px;font-size:.78rem}}
 
@@ -551,8 +557,10 @@ dialog.film.tall .fbox{aspect-ratio:9/16;width:100%}
 </main>
 
 <dialog class="film" id="film" aria-labelledby="filmT">
+  <span class="fguard" tabindex="0" data-to="last"></span>
   <div class="fbar"><b id="filmT"></b><a id="filmYt" class="fyt" target="_blank" rel="noopener"></a><button type="button" class="fx" id="filmX" aria-label="닫기">✕</button></div>
   <div class="fbox" id="filmBox"></div>
+  <span class="fguard" tabindex="0" data-to="first"></span>
 </dialog>
 
 <footer>
@@ -582,7 +590,7 @@ const I18N={
   aboutTitle:"카메라 뒤에서 <em>시작했습니다.</em>",
   about1:"조명을 세우고 카메라를 잡던 현장 경험이 지금의 구도와 빛 설계에 그대로 쓰입니다.",
   about2:"뮤직비디오 현장에서는 조명팀과 A캠을, 다큐멘터리에서는 감독을 맡았고, 인포머셜과 타임랩스를 기획·연출했습니다. AI 영상에서도 컷마다 빛이 어디서 오는지, 어떤 렌즈로 보는지를 먼저 정하고 시작합니다.",
-  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.6",
+  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.6.2",
   watch:"영상 보기",runtime:"러닝타임",ratio:"비율",tools:"툴",year:"연도",
   fIntent:"의도",fDecision:"연출 판단",fWatch:"볼 지점",temp:"임시",play:"▶ 재생",
   idle:"단계 위에 커서를 올리면 내용이 재생됩니다",hint:"프레임을 고르면 확대경에 표시됩니다",
@@ -591,7 +599,7 @@ const I18N={
   cEmail:"이메일",cInsta:"인스타그램",cResume:"이력서",copy:"주소 복사",copied:"복사됨",mail:"메일 쓰기",resumeSoon:"PDF 준비 중",resumeNote:"최신화 후 추가됩니다.",resumeGet:"PDF 내려받기",instaNote:"작업 과정과 새 영상을 올립니다."},
  en:{role:"AI Film Director",navSel:"Selected",navWorks:"Work",navGenres:"Genres",navProcess:"Process",navAbout:"About",navContact:"Contact",
   h1:[["Bringing"],["unseen scenes"],["into <em>frame.</em>"]],
-  rolel:"<span class=\"ph\">Taking stories where no camera can go:</span> <span class=\"ph\">new worlds, built with AI.</span>",
+  rolel:"<span class=\"ph\">Beyond the camera’s reach,</span> <span class=\"ph\">I build new worlds with AI.</span>",
   sub:"Story first. The tools follow.",
   ctaSel:"See selected work ↓",ctaContact:"Contact",
   st1b:"2nd",st1:"Kling Kreate #57",st2:"AI film works",st3:"Live-action projects",
@@ -604,7 +612,7 @@ const I18N={
   aboutTitle:"It started <em>behind the camera.</em>",
   about1:"Time spent rigging lights and operating camera now shapes how I compose and light every AI shot.",
   about2:"I ran lighting and A-camera on a music video, directed a documentary, and planned and directed an infomercial and a timelapse. In AI work I still start each shot by deciding where the light comes from and which lens it is seen through.",
-  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.6",
+  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.6.2",
   watch:"Watch the film",runtime:"Runtime",ratio:"Ratio",tools:"Tools",year:"Year",
   fIntent:"Intent",fDecision:"Direction",fWatch:"Watch for",temp:"TEMP",play:"▶ Play",
   idle:"Hover a stage to play it",hint:"Pick a frame to see it under the loupe",
@@ -779,7 +787,7 @@ function renderStrip(){
  const list=WORKS.filter(w=>!(w.featured>0)).concat(featured());
  $("track").innerHTML=list.map(w=>{const c=w[lang],emb=EMBED&&ytId(w.url);
   return `<a class="card" href="${esc(w.url)}" ${emb?filmAttrs(w,c.t):'target="_blank" rel="noopener"'} draggable="false" aria-label="${esc(emb?T.playOf(c.t):T.watchOf(c.t))}" data-frame="${w.videoAspect} · ${w.rt}" data-rt="${w.rt}">
-   <div class="m" style="--ar:${w.posterAspect}"><img src="${w.poster}" alt="" loading="lazy" draggable="false">
+   <div class="m" style="--ar:${w.posterAspect}"><img src="${w.poster}" alt="" decoding="async" draggable="false">
     <span class="ratio">${w.videoAspect}</span><span class="play">${T.play}</span>
     <div class="slate" aria-hidden="true"><span>${w.tools.slice(0,3).map(esc).join(" · ")}</span><span class="tc">00:00:00</span></div></div>
    <h3>${esc(c.t)}</h3><p class="${w.award?"award":""}">${w.award?"★ ":""}${esc(c.s)}</p><span class="line">${esc(c.line)}</span></a>`}).join("");
@@ -912,15 +920,20 @@ document.addEventListener("visibilitychange",()=>{if(document.hidden)playing.sli
 /* ---------- long-paragraph balance ----------
    CSS balance stops working past ~6 lines. For longer copy, narrow the block a few px at a time
    until the last line is at least half as long as the others, keeping the same line count. */
-function lineInfo(el){const rg=document.createRange();rg.selectNodeContents(el);const L={};
- for(const r of rg.getClientRects()){if(r.width<2)continue;const k=Math.round((r.top+r.height/2)/6);L[k]=L[k]||[1e9,-1e9];L[k][0]=Math.min(L[k][0],r.left);L[k][1]=Math.max(L[k][1],r.right);}
- const w=Object.values(L).map(a=>a[1]-a[0]);return{n:w.length,ratio:w.length?w[w.length-1]/Math.max(...w):1};}
+function lineInfo(el){const rg=document.createRange();rg.selectNodeContents(el);const top=el.getBoundingClientRect().top,L=new Map();
+ for(const r of rg.getClientRects()){if(r.width<2)continue;const k=Math.round((r.top-top+r.height/2)/6);const v=L.get(k)||[1e9,-1e9];v[0]=Math.min(v[0],r.left);v[1]=Math.max(v[1],r.right);L.set(k,v);}
+ const w=[...L.keys()].sort((x,y)=>x-y).map(k=>L.get(k)[1]-L.get(k)[0]);return{n:w.length,ratio:w.length?w[w.length-1]/Math.max(...w):1};}
+/* Steps in only when a paragraph has 7+ lines AND its last line is under 40% of the longest;
+   then narrows it 6px at a time (same line count) until the last line reaches 50%. */
 function evenOut(){document.querySelectorAll(".why dd,.statement p,.loupe p").forEach(el=>{el.style.maxWidth="";
  const a=lineInfo(el);if(a.n<=6||a.ratio>=.4)return;const W=el.getBoundingClientRect().width;
  for(let w=W-6;w>W*.8;w-=6){el.style.maxWidth=w+"px";const b=lineInfo(el);if(b.n===a.n&&b.ratio>=.5)return;if(b.n>a.n)break;}
  el.style.maxWidth="";});}
-let eoT;addEventListener("resize",()=>{clearTimeout(eoT);eoT=setTimeout(evenOut,150);});
-document.fonts&&document.fonts.ready.then(evenOut);
+/* text widths changed (language, fonts, viewport width): re-balance, then re-read section positions for the HUD */
+function relayout(){evenOut();measure();}
+let eoT,lastW=innerWidth;
+addEventListener("resize",()=>{if(innerWidth===lastW)return;lastW=innerWidth;clearTimeout(eoT);eoT=setTimeout(relayout,150);});
+document.fonts&&document.fonts.ready.then(relayout);
 
 /* ---------- film modal (YouTube, in-page) ---------- */
 const dlg=$("film");let filmFrom=null;
@@ -936,10 +949,11 @@ dlg.addEventListener("close",()=>{$("filmBox").innerHTML="";modalOpen=false;docu
  if(filmFrom&&filmFrom.isConnected)filmFrom.focus({preventScroll:true});filmFrom=null;fillSlots();});
 dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close();});
 $("filmX").onclick=()=>dlg.close();
-/* keep Tab inside the modal: YouTube link -> close -> player -> back to the link */
-dlg.addEventListener("keydown",e=>{if(e.key!=="Tab")return;
- const f=[$("filmYt"),$("filmX"),dlg.querySelector("iframe")].filter(Boolean),i=f.indexOf(document.activeElement);
- e.preventDefault();f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus();});
+/* Keep Tab inside the modal. Keys pressed inside the cross-origin YouTube iframe never reach this page,
+   so two focusable guards at the ends of the dialog catch focus leaving either way and send it back:
+   leaving past the player -> YouTube link, Shift+Tab before the YouTube link -> player. */
+dlg.querySelectorAll(".fguard").forEach(g=>g.addEventListener("focus",()=>{
+ if(g.dataset.to==="first")$("filmYt").focus();else(dlg.querySelector("#filmBox iframe")||$("filmX")).focus();}));
 document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-yt]");
  if(!a||!a.dataset.yt||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button)return;
  e.preventDefault();openFilm(a);});
@@ -965,7 +979,7 @@ function render(){
    <svg viewBox="0 0 260 180" preserveAspectRatio="none" aria-hidden="true"><path d="${LOOPS[i%3]}"/></svg></li>`}).join("");
  renderLoupe(false);
  renderContact();
- arm(document);measure();evenOut();
+ arm(document);relayout();
 }
 
 /* ---------- strip: drag, arrows, progress, skew ---------- */
