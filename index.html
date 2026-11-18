@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="poB의 AI 영상 포트폴리오. 실사 촬영과 조명 경험을 바탕으로 AI 단편과 광고 영상을 기획하고 연출합니다.">
+<meta name="description" content="poB의 AI 영상 포트폴리오. 카메라가 닿지 않는 곳까지, AI로 새로운 세계를 만들어 갑니다.">
 <meta name="theme-color" content="#0c0b0a">
 <link rel="canonical" href="https://aipob.github.io/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230c0b0a'/%3E%3Cpath d='M5 12V5h7M27 20v7h-7' fill='none' stroke='%23d9a15b' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23efe9df'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:title" content="poB · AI Film Director">
-<meta property="og:description" content="poB의 AI 영상 포트폴리오. 실사 촬영과 조명 경험을 바탕으로 AI 단편과 광고 영상을 기획하고 연출합니다.">
+<meta property="og:description" content="poB의 AI 영상 포트폴리오. 카메라가 닿지 않는 곳까지, AI로 새로운 세계를 만들어 갑니다.">
 <meta property="og:url" content="https://aipob.github.io/">
 <meta property="og:image" content="https://aipob.github.io/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
@@ -396,6 +396,36 @@ html{overflow-x:clip}
 
 .sheet{align-items:start}
 .neg{align-self:start}
+
+/* ---------- v0.6 ---------- */
+/* Text balance: Korean breaks only between words; short blocks split into even lines,
+   longer copy avoids a lone word on the last line. */
+body{word-break:keep-all;overflow-wrap:break-word}
+p,dd,li,small,.line,.credit,.role{text-wrap:pretty}
+h1,h2,h3,h4,.rolel,.sub,.gintro,.note,.statement p,.card p,.card .line,.gmeta b,.gmeta span,.credit,.credit b,.why dd,.loupe p,.loupe .role,.cb small,.badge,.eyebrow,.gfoot span,.idle p,.dl li,.inl li,.specs dd{text-wrap:balance}
+.credit b{display:block;margin-top:2px}
+
+/* genre reel: queued chip, mobile YouTube link (R18) */
+.gwait{position:absolute;left:10px;top:20px;z-index:4;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.1em;color:#fff;background:rgba(0,0,0,.55);padding:2px 6px;border-radius:2px}
+.gwait[hidden]{display:none}
+@media (max-width:520px){.gctl{flex-wrap:wrap}.gctl .more.yt{display:inline-block;margin-left:0;flex-basis:100%;width:max-content;max-width:100%;margin-top:4px}}
+
+/* film modal */
+html.modal{overflow:hidden}
+dialog.film{padding:0;border:0;background:transparent;color:#efe9df;max-width:94vw;max-height:none;width:min(1100px,94vw);overflow:visible}
+dialog.film.tall{width:min(94vw,calc(min(100dvh - 96px,1000px)*9/16),440px)}
+dialog.film::backdrop{background:rgba(6,5,4,.9)}
+.fbar{display:flex;align-items:center;gap:10px;margin-bottom:10px;min-width:0}
+.fbar b{flex:1;min-width:0;font-weight:600;font-size:.95rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fyt{flex:none;font-size:.82rem;color:#efe9df;text-decoration:none;border:1px solid rgba(255,255,255,.35);padding:8px 14px;border-radius:999px}
+.fyt:hover{border-color:var(--accent);color:var(--accent)}
+.fx{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(12,11,10,.7);color:#fff;cursor:pointer;font-size:1rem}
+.fx:hover{border-color:var(--accent);color:var(--accent)}
+.fyt:focus-visible,.fx:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fbox{background:#000;aspect-ratio:16/9;width:min(100%,calc((100dvh - 96px)*16/9));margin:0 auto}
+dialog.film.tall .fbox{aspect-ratio:9/16;width:100%}
+.fbox iframe{width:100%;height:100%;border:0;display:block}
+@media (max-width:520px){.fyt{padding:7px 11px;font-size:.78rem}}
 </style>
 </head>
 <body>
@@ -433,7 +463,7 @@ html{overflow-x:clip}
     <div class="hero-copy wrap">
       <p class="eyebrow">AI Film Director · Seoul</p>
       <h1 id="headline">보이지 않던 장면을 프레임 안으로.</h1>
-      <p class="rolel" data-t="rolel">실사 촬영과 조명 경험을 바탕으로 AI 단편과 광고 영상을 기획하고 연출합니다.</p>
+      <p class="rolel" data-t="rolel">카메라가 닿지 않는 곳까지, AI로 새로운 세계를 만들어 갑니다.</p>
       <p class="sub" data-t="sub">이야기가 먼저 움직이고, 기술은 그 뒤를 따라옵니다.</p>
       <div class="acts">
         <a class="btn" href="#selected" data-t="ctaSel">대표작 보기 ↓</a>
@@ -517,6 +547,11 @@ html{overflow-x:clip}
   </section>
 </main>
 
+<dialog class="film" id="film" aria-labelledby="filmT">
+  <div class="fbar"><b id="filmT"></b><a id="filmYt" class="fyt" target="_blank" rel="noopener"></a><button type="button" class="fx" id="filmX" aria-label="닫기">✕</button></div>
+  <div class="fbox" id="filmBox"></div>
+</dialog>
+
 <footer>
   <div class="wrap mono"><span>© 2026 poB · END OF REEL</span><span data-t="draft"></span></div>
 </footer>
@@ -531,47 +566,47 @@ const RESUME_URL="";   /* add the PDF path when ready */
 const I18N={
  ko:{role:"AI 영상 감독",navSel:"대표작",navWorks:"작품",navGenres:"장르",navProcess:"작업 방식",navAbout:"소개",navContact:"연락하기",
   h1:[["보이지 않던"],["장면을"],["프레임 <em>안으로.</em>"]],
-  rolel:"실사 촬영과 조명 경험을 바탕으로 AI 단편과 광고 영상을 기획하고 연출합니다.",
+  rolel:"카메라가 닿지 않는 곳까지, AI로 새로운 세계를 만들어 갑니다.",
   sub:"이야기가 먼저 움직이고, 기술은 그 뒤를 따라옵니다.",
   ctaSel:"대표작 보기 ↓",ctaContact:"연락하기",
   st1b:"2위",st1:"Kling Kreate 제57회",st2:"AI 영상 작업",st3:"실사 프로젝트",
-  selTitle:"대표작",worksTitle:"주제가 주어질 때마다, <em>한 편의 이야기로.</em>",
+  selTitle:"대표작",worksTitle:"하나의 주제에서, <em>한 편의 이야기로.</em>",
   genTitle:"장르와 <em>표현 방식</em>",
   genIntro:"브랜드 광고, 서사 단편, 액션과 코미디까지. 장르에 맞춰 구도·움직임·소리를 설계하며 AI 영상을 제작합니다.",
-  genLabel:"Genre reel · 개인 작업",genFoot:"모든 클립은 @ai.pob 피드에 올린 완성작에서 발췌한 3초 미리보기입니다.",genInsta:"인스타그램에서 전체 보기 ↗",
+  genLabel:"Genre reel · 개인 작업",genFoot:"개인 작업에서 발췌한 짧은 미리보기입니다.",genInsta:"인스타그램에서 전체 보기 ↗",
   procTitle:"장면이 만들어지는 <em>순서</em>",
   cross:"현재는 기획부터 후반까지 작업별 검토 기준을 세우고, 두 AI 에이전트의 교차 검토와 직접 검수를 함께 진행합니다. 구체적인 툴과 제작 과정은 문의 시 안내합니다.",
   aboutTitle:"카메라 뒤에서 <em>시작했습니다.</em>",
   about1:"조명을 세우고 카메라를 잡던 현장 경험이 지금의 구도와 빛 설계에 그대로 쓰입니다.",
   about2:"뮤직비디오 현장에서는 조명팀과 A캠을, 다큐멘터리에서는 감독을 맡았고, 인포머셜과 타임랩스를 기획·연출했습니다. AI 영상에서도 컷마다 빛이 어디서 오는지, 어떤 렌즈로 보는지를 먼저 정하고 시작합니다.",
-  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.5",
+  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.6",
   watch:"영상 보기",runtime:"러닝타임",ratio:"비율",tools:"툴",year:"연도",
   fIntent:"의도",fDecision:"연출 판단",fWatch:"볼 지점",temp:"임시",play:"▶ 재생",
   idle:"단계 위에 커서를 올리면 내용이 재생됩니다",hint:"프레임을 고르면 확대경에 표시됩니다",
   prev:"이전 작품",next:"다음 작품",watchOf:t=>`${t} 영상 보기 (새 탭)`,
-  gPrev:"이전 클립",gNext:"다음 클립",gPause:"자동 재생 멈춤",gPlay:"자동 재생",gMore:"인스타그램에서 보기",gMoreYt:"유튜브에서 보기",
+  gPrev:"이전 클립",gNext:"다음 클립",gPause:"자동 재생 멈춤",gPlay:"자동 재생",gMore:"인스타그램에서 보기",gMoreYt:"유튜브에서 보기",playFilm:"영상 재생",playOf:t=>`${t} 영상 재생`,openYt:"YouTube에서 열기",close:"닫기",gWait:"대기",gPauseW:"자동 재생 대기 중. 누르면 멈춤",gFail:"재생할 수 없어요. 눌러서 다시 재생",
   cEmail:"이메일",cInsta:"인스타그램",cResume:"이력서",copy:"주소 복사",copied:"복사됨",mail:"메일 쓰기",resumeSoon:"PDF 준비 중",resumeNote:"최신화 후 추가됩니다.",resumeGet:"PDF 내려받기",instaNote:"작업 과정과 새 영상을 올립니다."},
  en:{role:"AI Film Director",navSel:"Selected",navWorks:"Work",navGenres:"Genres",navProcess:"Process",navAbout:"About",navContact:"Contact",
   h1:[["Bringing"],["unseen scenes"],["into <em>frame.</em>"]],
-  rolel:"I bring hands-on experience in camera and lighting to directing AI films and ads.",
+  rolel:"Taking stories where no camera can go: new worlds, built with AI.",
   sub:"Story first. The tools follow.",
   ctaSel:"See selected work ↓",ctaContact:"Contact",
   st1b:"2nd",st1:"Kling Kreate #57",st2:"AI film works",st3:"Live-action projects",
-  selTitle:"Selected work",worksTitle:"Every brief becomes <em>a story.</em>",
+  selTitle:"Selected work",worksTitle:"From one theme, <em>one story.</em>",
   genTitle:"Genres and <em>styles</em>",
   genIntro:"Brand ads, narrative shorts, action and comedy. I design framing, motion and sound to fit each genre.",
-  genLabel:"Genre reel · personal work",genFoot:"Every clip is a three-second preview from a finished film on the @ai.pob feed.",genInsta:"See them all on Instagram ↗",
+  genLabel:"Genre reel · personal work",genFoot:"Short previews taken from personal work.",genInsta:"See them all on Instagram ↗",
   procTitle:"How a scene gets <em>made</em>",
   cross:"Today every stage, from planning to post, runs against a written review checklist, with cross-review by two AI agents plus my own final check. Ask me for the specific tools and process.",
   aboutTitle:"It started <em>behind the camera.</em>",
   about1:"Time spent rigging lights and operating camera now shapes how I compose and light every AI shot.",
   about2:"I ran lighting and A-camera on a music video, directed a documentary, and planned and directed an infomercial and a timelapse. In AI work I still start each shot by deciding where the light comes from and which lens it is seen through.",
-  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.5",
+  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.6",
   watch:"Watch the film",runtime:"Runtime",ratio:"Ratio",tools:"Tools",year:"Year",
   fIntent:"Intent",fDecision:"Direction",fWatch:"Watch for",temp:"TEMP",play:"▶ Play",
   idle:"Hover a stage to play it",hint:"Pick a frame to see it under the loupe",
   prev:"Previous work",next:"Next work",watchOf:t=>`Watch ${t} (new tab)`,
-  gPrev:"Previous clip",gNext:"Next clip",gPause:"Pause autoplay",gPlay:"Autoplay",gMore:"View on Instagram",gMoreYt:"View on YouTube",
+  gPrev:"Previous clip",gNext:"Next clip",gPause:"Pause autoplay",gPlay:"Autoplay",gMore:"View on Instagram",gMoreYt:"View on YouTube",playFilm:"Play film",playOf:t=>`Play ${t}`,openYt:"Open on YouTube",close:"Close",gWait:"Queued",gPauseW:"Autoplay queued. Press to stop",gFail:"Could not play. Press to retry",
   cEmail:"Email",cInsta:"Instagram",cResume:"Résumé",copy:"Copy address",copied:"Copied",mail:"Write an email",resumeSoon:"PDF coming soon",resumeNote:"Will be added once updated.",resumeGet:"Download PDF",instaNote:"Process notes and new films."}
 };
 
@@ -598,11 +633,11 @@ const WORKS=[
    decision:"Taeho appears in the 4th-place running crew and Minjun owns the 2nd-place home, so the 1st place and the final twist connect them. The film narrows from a crowd to a home alone, then opens onto two friends at one table.",
    watch:"The doorbell after the anchor's twist teaser, and the moment two people who ate in separate rooms sit down at the same table."}},
  {id:"dapjang",featured:3,poster:"img/dapjang.jpg",posterAspect:"16/9",videoAspect:"16:9",rt:"02:15",year:"2026",tools:["Nano Banana 2·Pro","GPT Image 2.5","Kling 3.0·O3","Seedance 2.5","ElevenLabs","Topaz"],url:"https://youtu.be/wxBg-nbakkM",
-  ko:{t:"답장",s:"인성클린콘텐츠 UCC 공모전 · AI 윤리",line:"AI 자동 답장이 대신 말하는 동안 닿지 못한 할아버지의 마음.",credit:"팀 2인 공동 제작 · <b>담당: 기획·연출 방향 설계, AI 제작 워크플로우 설계·프롬프팅</b>",
+  ko:{t:"답장",s:"인성클린콘텐츠 UCC 공모전 · AI 윤리",line:"AI 자동 답장이 대신 말하는 동안 닿지 못한 할아버지의 마음.",credit:"팀 2인 공동 제작<b>담당: 기획·연출 방향 설계, AI 제작 워크플로우 설계·프롬프팅</b>",
    intent:"손자를 대신하는 AI 자동 답장과 할아버지의 느린 문자를 통해, 편리한 소통에서 빠진 마음을 다룹니다. 재회한 두 사람이 음성 입력을 함께 써보는 장면으로, 기술이 자신의 말을 직접 전하도록 돕는 쓰임도 보여줍니다.",
    decision:"작품의 연출 방향과 제작 흐름을 설계하고, 팀원과 함께 장면 단위로 다듬었습니다. 할아버지는 오른쪽, 손자는 왼쪽을 보도록 시선을 나눠 떨어진 공간에서도 마주 보게 했습니다. 혼자 먹는 저녁과 함께 먹는 식사는 같은 정면 대칭 구도로 반복해, 빈자리가 채워지는 변화를 보여줍니다.",
    watch:"할아버지 혼자였던 식탁의 맞은편에 손자가 앉고, 두 사람의 시선이 한 화면에서 만나는 장면."},
-  en:{t:"The Reply",s:"Character & Clean Content UCC Contest · AI ethics",line:"While an AI auto-reply speaks for him, his grandfather's care goes unanswered.",credit:"Two-person team · <b>My part: direction and story design, AI production workflow and prompting</b>",
+  en:{t:"The Reply",s:"Character & Clean Content UCC Contest · AI ethics",line:"While an AI auto-reply speaks for him, his grandfather's care goes unanswered.",credit:"Two-person team<b>My part: direction and story design, AI production workflow and prompting</b>",
    intent:"An AI auto-reply standing in for a grandson, against a grandfather's slow texts: what convenient messaging leaves out. When the two meet again they try voice input together, showing technology that helps a person say their own words.",
    decision:"I designed the film's direction and production flow, and refined it scene by scene with my teammate. The grandfather always faces right and the grandson left, so they face each other across separate spaces. Eating alone and eating together are framed in the same symmetrical wide shot, so the empty chair visibly fills.",
    watch:"The grandson sitting across the table where the grandfather once ate alone, and their eyelines meeting in one frame."}},
@@ -619,7 +654,7 @@ const WORKS=[
   ko:{t:"KAIA, 미래가 아닌 현재",s:"졸업작품 · UAM 브랜드 숏필름",line:"도심항공교통(UAM)을 먼 미래가 아닌 지금의 이야기로 그린 브랜드 숏필름.",credit:"팀 3인 · 총괄 제작"},
   en:{t:"KAIA, Not the Future but Now",s:"Graduation film · UAM brand short",line:"A brand short that treats urban air mobility as today's story, not a distant future.",credit:"Three-person team · lead producer"}}
 ];
-const PERSONAL={id:"boxing",poster:"img/boxing-ko.jpg",posterAspect:"16/9",videoAspect:"16:9",rt:"00:30",year:"2026",tools:["GPT Image","Newtake 3D Director","Seedance 2.5"],url:INSTAGRAM,
+const PERSONAL={id:"boxing",poster:"img/boxing-ko.jpg",posterAspect:"16/9",videoAspect:"16:9",rt:"00:30",year:"2026",tools:["GPT Image","Newtake 3D Director","Seedance 2.5"],url:"https://www.instagram.com/reel/Dfqok8vBlyJ/",
   ko:{t:"을지로 언더그라운드",s:"개인 작업 대표 · 로봇 복싱",credit:"1인 총괄 제작",intent:"밀리던 쪽이 판을 뒤집는 30초입니다. 로봇이 조종사의 섀도복싱을 그대로 따라 하는 순간을 이야기의 전환점으로 잡았습니다.",decision:"3D 프리비즈로 카메라 동선을 먼저 짜고, 결정타가 터지는 순간 화면비가 열리도록 구도와 후반 편집을 함께 설계했습니다.",watch:"어퍼컷 직전까지 닫혀 있던 레터박스가 열리는 순간."},
   en:{t:"Euljiro Underground",s:"Personal highlight · Robot boxing",credit:"Solo production",intent:"Thirty seconds in which the losing side turns the fight. The turning point is the robot copying its pilot's shadowboxing.",decision:"I blocked the camera in 3D previz first, then designed the framing and the edit together so the aspect ratio opens on the knockout punch.",watch:"The letterbox, closed until the uppercut, opening at the moment of impact."}};
 
@@ -628,7 +663,7 @@ const C=(id,ko,kl,en,el,o={})=>({id,src:`clips/${id}.mp4`,poster:`clips/${id}.jp
 const GENRES=[
  {id:"pov",ko:"사물·체험 POV",en:"Object & first-person POV",clips:[
   C("vending","자판기 POV","자판기 속 시점으로 바라본 하루.","Vending Machine POV","A day seen from inside a vending machine."),
-  C("karaoke","노래방 POV","노래방 마이크 앞에 선 손님들의 시점.","Karaoke POV","The guests at a karaoke mic, from the mic's point of view."),
+  C("karaoke","노래방 POV","노래방 마이크의 시점으로 바라본 손님들.","Karaoke POV","Karaoke guests, seen from the mic's point of view."),
   C("pigeon","비둘기의 하루","뉴욕 비둘기의 1인칭으로 본 도시.","A Pigeon's Day","The city through a New York pigeon's eyes."),
   C("mosquito","모기 POV","어느 집에서 하루를 사는 모기의 시점.","Mosquito POV","A day in one home, from a mosquito's point of view."),
   C("sheep","세차장 양 POV","세차장을 통과하는 양의 1인칭.","Car-wash Sheep POV","A sheep's ride through a car wash."),
@@ -654,6 +689,7 @@ const GENRES=[
   C("race","우주 레이스","펭귄과 거북이가 우주 트랙을 달리는 픽셀 레이스.","Space Race","A penguin and a turtle racing on a pixel track through space.")]}
 ];
 GENRES.find(g=>g.id==="action").clips.find(c=>c.id==="joseon").poster="img/joseon.jpg";
+GENRES.find(g=>g.id==="comedy").clips.find(c=>c.id==="aistudio").poster="img/aistudio.jpg";
 
 /* Process: approach only, no model names. [title, alternatives, bullets] */
 const STEPS={
@@ -694,6 +730,10 @@ const tcFmt=f=>{const fr=f%24,s=Math.floor(f/24),m=Math.floor(s/60),h=Math.floor
 let lang="ko",active=NARROW.matches?0:-1,frameOn=0;
 try{const s=localStorage.getItem("pob-lang");if(s==="en"||s==="ko")lang=s;}catch(e){}
 const tmp=on=>(DRAFT&&on)?`<span class="tmp">${I18N[lang].temp}</span>`:"";
+const ytId=u=>{const m=String(u).match(/(?:youtu\.be\/|shorts\/|[?&]v=|embed\/)([\w-]{11})/);return m?m[1]:"";};
+/* In-page playback only where YouTube embeds are allowed (GitHub Pages, local). Elsewhere links open YouTube. */
+const EMBED=/(^|\.)github\.io$/.test(location.hostname)||location.protocol==="file:"||/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+const filmAttrs=(w,t)=>`data-yt="${ytId(w.url)}" data-ar="${w.videoAspect}" data-title="${esc(t)}"`;
 const featured=()=>WORKS.filter(w=>w.featured>0).sort((a,b)=>a.featured-b.featured);
 
 /* Pre-publish check: run pobAudit() in the console. */
@@ -728,12 +768,14 @@ function takeHTML(w,k,label){
     <span class="credit">${c.credit}</span>
     <dl class="why"><div><dt>${T.fIntent}</dt><dd>${esc(c.intent)}</dd></div><div><dt>${T.fDecision}</dt><dd>${esc(c.decision)}</dd></div><div><dt>${T.fWatch}</dt><dd>${esc(c.watch)}</dd></div></dl>
     <dl class="specs"><dt>${T.runtime}</dt><dd>${w.rt}</dd><dt>${T.ratio}</dt><dd>${w.videoAspect}</dd><dt>${T.tools}</dt><dd>${w.tools.map(esc).join(" · ")}</dd><dt>${T.year}</dt><dd>${w.year}</dd></dl>
-    <div><a class="watch" href="${esc(w.url)}" target="_blank" rel="noopener" aria-label="${esc(T.watchOf(c.t))}">${T.watch} ↗</a></div></div></article>`;
+    <div>${EMBED&&ytId(w.url)?`<a class="watch" href="${esc(w.url)}" ${filmAttrs(w,c.t)} aria-label="${esc(T.playOf(c.t))}">▶ ${T.playFilm}</a>`
+      :`<a class="watch" href="${esc(w.url)}" target="_blank" rel="noopener" aria-label="${esc(T.watchOf(c.t))}">${/instagram\.com/.test(w.url)?T.gMore:T.watch} ↗</a>`}</div></div></article>`;
 }
 function renderStrip(){
  const T=I18N[lang];
- $("track").innerHTML=WORKS.map(w=>{const c=w[lang];
-  return `<a class="card" href="${esc(w.url)}" target="_blank" rel="noopener" draggable="false" aria-label="${esc(T.watchOf(c.t))}" data-frame="${w.videoAspect} · ${w.rt}" data-rt="${w.rt}">
+ const list=WORKS.filter(w=>!(w.featured>0)).concat(featured());
+ $("track").innerHTML=list.map(w=>{const c=w[lang],emb=EMBED&&ytId(w.url);
+  return `<a class="card" href="${esc(w.url)}" ${emb?filmAttrs(w,c.t):'target="_blank" rel="noopener"'} draggable="false" aria-label="${esc(emb?T.playOf(c.t):T.watchOf(c.t))}" data-frame="${w.videoAspect} · ${w.rt}" data-rt="${w.rt}">
    <div class="m" style="--ar:${w.posterAspect}"><img src="${w.poster}" alt="" loading="lazy" draggable="false">
     <span class="ratio">${w.videoAspect}</span><span class="play">${T.play}</span>
     <div class="slate" aria-hidden="true"><span>${w.tools.slice(0,3).map(esc).join(" · ")}</span><span class="tc">00:00:00</span></div></div>
@@ -786,62 +828,118 @@ function renderContact(){
    :`<div class="cb pending"><span class="k">${T.cResume}</span><span class="v">${T.resumeSoon}</span><small>${T.resumeNote}</small></div>`}`;
 }
 
-/* ---------- genre reel ---------- */
+/* ---------- genre reel ----------
+   At most MAXPLAY clips decode at once. A card only loads its clip while >=55% of its frame is on screen,
+   and drops it (src removed) when it scrolls away, the tab is hidden or the film modal opens.
+   States: playing (has a slot) / waiting (autoplay on, no free slot) / paused (user stopped) / failed. */
 const MAXPLAY=matchMedia("(max-width:760px)").matches?1:2;
 const playing=[];
 const reels=[];
+let modalOpen=false;
 class Reel{
- constructor(g,el){this.g=g;this.el=el;this.i=0;this.auto=!RM;this.vis=false;this.failed=false;
+ constructor(g,el){this.g=g;this.el=el;this.i=0;this.auto=!RM;this.vis=false;this.failed=false;this.tok=0;
   this.fr=el.querySelector(".gframe");this.v=el.querySelector("video");this.p=el.querySelector("img.gp");this.big=el.querySelector(".gbig");
+  this.tog=el.querySelector(".gtog");this.wt=el.querySelector(".gwait");
   this.v.muted=true;this.v.defaultMuted=true;this.v.playsInline=true;
-  this.v.addEventListener("ended",()=>{if(this.auto&&this.g.clips.length>1)this.go(this.i+1,true);else if(this.auto){this.v.currentTime=0;this.play();}});
+  this.v.addEventListener("ended",()=>{if(!this.auto)return;if(this.g.clips.length>1)this.go(this.i+1,true);else{this.v.currentTime=0;this.play(true);}});
   this.v.addEventListener("timeupdate",()=>{const d=this.v.duration||3.5;this.el.querySelector(".gsegs i.now")?.style.setProperty("--pp",Math.min(1,this.v.currentTime/d));});
-  this.v.addEventListener("playing",()=>{this.fr.classList.add("live");this.big.hidden=true;});
-  el.querySelector(".gprev").onclick=()=>{this.stopAuto();this.go(this.i-1,false);};
-  el.querySelector(".gnext").onclick=()=>{this.stopAuto();this.go(this.i+1,false);};
-  el.querySelector(".gtog").onclick=()=>{if(this.auto)this.stopAuto();else{this.auto=true;this.failed=false;this.sync();this.play(true);}};
-  this.big.onclick=()=>{this.auto=true;this.failed=false;this.sync();this.play(true);};
+  this.v.addEventListener("playing",()=>{this.fr.classList.add("live");});
+  this.v.addEventListener("error",()=>{if(this.v.getAttribute("src"))this.fail();});
+  const pv=el.querySelector(".gprev"),nx=el.querySelector(".gnext");
+  if(pv)pv.onclick=()=>{this.stopAuto();this.go(this.i-1,false);};
+  if(nx)nx.onclick=()=>{this.stopAuto();this.go(this.i+1,false);};
+  this.tog.onclick=()=>{if(this.auto)this.stopAuto();else this.resume();};
+  this.big.onclick=()=>this.resume();
   this.go(0,false,true);
  }
  clip(){return this.g.clips[this.i];}
- meta(){const T=I18N[lang],c=this.clip(),n=this.g.clips.length;
+ meta(){const c=this.clip(),n=this.g.clips.length;
   this.el.querySelector(".gmeta").innerHTML=`<b>${esc(c[lang].t)}</b><span>${esc(c[lang].l)}</span>`;
   this.el.querySelector(".cnt").textContent=`${String(this.i+1).padStart(2,"0")} / ${String(n).padStart(2,"0")}`;
   this.el.querySelector(".gsegs").innerHTML=this.g.clips.map((_,j)=>`<i class="${j<this.i?"done":j===this.i?"now":""}"></i>`).join("");
   this.v.setAttribute("aria-label",c[lang].t);}
- sync(){const T=I18N[lang],b=this.el.querySelector(".gtog");b.setAttribute("aria-pressed",this.auto);b.setAttribute("aria-label",this.auto?T.gPause:T.gPlay);b.textContent=this.auto?"❚❚":"▶";
-  this.big.hidden=this.auto&&!this.failed&&this.vis;}
- go(i,animate,first){const n=this.g.clips.length;this.i=(i+n)%n;const c=this.clip();
-  this.release();this.p.src=c.poster;this.v.poster=c.poster;this.fr.classList.remove("live");this.meta();this.sync();
+ state(){return this.failed?"failed":!this.auto?"paused":playing.includes(this)?"playing":"waiting";}
+ sync(){const T=I18N[lang],st=this.state();this.el.dataset.state=st;
+  this.tog.setAttribute("aria-pressed",String(this.auto));this.tog.textContent=this.auto?"❚❚":"▶";
+  this.tog.setAttribute("aria-label",st==="playing"?T.gPause:st==="waiting"?T.gPauseW:T.gPlay);
+  this.big.setAttribute("aria-label",this.failed?T.gFail:T.gPlay);
+  const hide=this.auto&&!this.failed;
+  if(hide&&!this.big.hidden&&document.activeElement===this.big)this.tog.focus({preventScroll:true});
+  this.big.hidden=hide;this.wt.hidden=!(st==="waiting"&&this.vis);}
+ go(i,animate,first){const n=this.g.clips.length,was=playing.includes(this);this.i=(i+n)%n;const c=this.clip();
+  this.unload();this.p.src=c.poster;this.v.poster=c.poster;this.meta();
   if(animate&&!RM&&!first){this.fr.classList.remove("adv");void this.fr.offsetWidth;this.fr.classList.add("adv");}
-  if(this.auto&&this.vis)this.play(playing.includes(this)||!this.waiting);}
- release(){const k=playing.indexOf(this);if(k>-1){playing.splice(k,1);resumeWaiting(this);}this.v.pause();if(this.v.getAttribute("src")){this.v.removeAttribute("src");this.v.load();}}
- play(force){if(!this.vis||document.hidden)return;
-  if(!force&&!playing.includes(this)&&playing.length>=MAXPLAY){this.waiting=true;return;}
-  if(!this.v.getAttribute("src")){this.v.src=this.clip().src;}
-  if(!playing.includes(this)){while(playing.length>=MAXPLAY){const o=playing.shift();o.v.pause();o.waiting=true;}playing.push(this);}this.waiting=false;
-  const pr=this.v.play();if(pr&&pr.catch)pr.catch(err=>{if(err&&err.name==="NotAllowedError"){this.failed=true;this.auto=false;this.sync();}});}
- stopAuto(){this.auto=false;const k=playing.indexOf(this);if(k>-1){playing.splice(k,1);resumeWaiting(this);}this.v.pause();this.sync();}
- show(on){this.vis=on;this.sync();if(on){if(this.auto)this.play();}else this.release();}
+  if(this.auto&&this.vis)this.play(was);else if(was)this.release();else this.sync();}
+ /* drop the decoded clip and invalidate any pending play() promise */
+ unload(){this.tok++;this.v.pause();if(this.v.getAttribute("src")){this.v.removeAttribute("src");this.v.load();}this.fr.classList.remove("live");}
+ release(){const k=playing.indexOf(this);this.unload();if(k>-1){playing.splice(k,1);fillSlots();}this.sync();}
+ play(force){if(!this.vis||document.hidden||modalOpen){this.sync();return;}
+  if(!playing.includes(this)){
+   if(playing.length>=MAXPLAY){if(!force){this.sync();return;}const o=playing.shift();o.unload();o.sync();}
+   playing.push(this);}
+  if(!this.v.getAttribute("src"))this.v.src=this.clip().src;
+  const t=++this.tok;this.sync();
+  const pr=this.v.play();
+  if(pr&&pr.catch)pr.catch(err=>{if(t!==this.tok||(err&&err.name==="AbortError"))return;this.fail();});}
+ fail(){this.failed=true;this.auto=false;const k=playing.indexOf(this);this.unload();this.p.src=this.clip().poster;
+  if(k>-1){playing.splice(k,1);fillSlots();}this.sync();}
+ resume(){this.auto=true;this.failed=false;this.play(true);}
+ stopAuto(){this.auto=false;const k=playing.indexOf(this);this.v.pause();if(k>-1){playing.splice(k,1);fillSlots();}this.sync();}
+ /* slots are handed out by fillSlots() in page order, so the first visible card plays first */
+ show(on){if(on===this.vis)return;this.vis=on;if(on)this.sync();else this.release();}
 }
-function fillSlots(except){setTimeout(()=>{for(const r of reels){if(playing.length>=MAXPLAY)break;if(r!==except&&r.vis&&r.auto&&!playing.includes(r))r.play();}},0);}
-const resumeWaiting=fillSlots;
-const reelIO=new IntersectionObserver(es=>{es.forEach(en=>{const r=reels.find(x=>x.el===en.target);if(r)r.show(en.isIntersecting);});fillSlots();},{threshold:.55});
+function fillSlots(){setTimeout(()=>{for(const r of reels){if(playing.length>=MAXPLAY)break;if(r.vis&&r.auto&&!r.failed&&!playing.includes(r))r.play();}reels.forEach(r=>r.sync());},0);}
+const reelIO=new IntersectionObserver(es=>{es.forEach(en=>{const r=reels.find(x=>x.fr===en.target);if(r)r.show(en.isIntersecting&&en.intersectionRatio>=.55);});fillSlots();},{threshold:[0,.55]});
 function renderGenres(){
  const T=I18N[lang];
- reels.forEach(r=>{reelIO.unobserve(r.el);r.release();});reels.length=0;playing.length=0;
+ reels.forEach(r=>{reelIO.unobserve(r.fr);r.unload();});reels.length=0;playing.length=0;
  $("personal").innerHTML=takeHTML(PERSONAL,0,"PERSONAL");
  $("genresN").textContent=GENRES.length+" genres";
- $("ggrid").innerHTML=GENRES.map(g=>`<li class="gcard" id="g-${g.id}">
+ $("ggrid").innerHTML=GENRES.map(g=>{const multi=g.clips.length>1;return `<li class="gcard" id="g-${g.id}">
    <div class="ghead"><h3>${esc(g[lang])}</h3><span class="cnt"></span></div>
    <div class="gframe" data-frame="${esc(g[lang])}"><img class="gp" alt="" loading="lazy"><video preload="none" muted playsinline disablepictureinpicture></video>
-    <div class="gsegs" aria-hidden="true"></div><button type="button" class="gbig" hidden aria-label="${T.gPlay}"><span>▶</span></button></div>
+    <div class="gsegs" aria-hidden="true"></div><span class="gwait" aria-hidden="true" hidden>${T.gWait}</span><button type="button" class="gbig" hidden aria-label="${T.gPlay}"><span>▶</span></button></div>
    <div class="gmeta" aria-live="off"></div>
-   <div class="gctl"><button type="button" class="gbtn gprev" aria-label="${T.gPrev}">‹</button><button type="button" class="gbtn gtog" aria-pressed="false">▶</button><button type="button" class="gbtn gnext" aria-label="${T.gNext}">›</button>
-    <a class="more" href="${g.url||INSTAGRAM}" target="_blank" rel="noopener">${g.url?T.gMoreYt:T.gMore} ↗</a></div></li>`).join("");
- GENRES.forEach(g=>{const el=$("g-"+g.id);const r=new Reel(g,el);reels.push(r);reelIO.observe(el);});
+   <div class="gctl">${multi?`<button type="button" class="gbtn gprev" aria-label="${T.gPrev}">‹</button>`:""}<button type="button" class="gbtn gtog" aria-pressed="false">▶</button>${multi?`<button type="button" class="gbtn gnext" aria-label="${T.gNext}">›</button>`:""}
+    <a class="more${g.url?" yt":""}" href="${g.url||INSTAGRAM}" target="_blank" rel="noopener">${g.url?T.gMoreYt:T.gMore} ↗</a></div></li>`}).join("");
+ GENRES.forEach(g=>{const el=$("g-"+g.id);const r=new Reel(g,el);reels.push(r);reelIO.observe(r.fr);});
 }
-document.addEventListener("visibilitychange",()=>{if(document.hidden){playing.slice().forEach(r=>r.v.pause());playing.length=0;}else reels.forEach(r=>{if(r.vis&&r.auto)r.play();});});
+document.addEventListener("visibilitychange",()=>{if(document.hidden)playing.slice().forEach(r=>r.release());else fillSlots();});
+
+/* ---------- long-paragraph balance ----------
+   CSS balance stops working past ~6 lines. For longer copy, narrow the block a few px at a time
+   until the last line is at least half as long as the others, keeping the same line count. */
+function lineInfo(el){const rg=document.createRange();rg.selectNodeContents(el);const L={};
+ for(const r of rg.getClientRects()){if(r.width<2)continue;const k=Math.round((r.top+r.height/2)/6);L[k]=L[k]||[1e9,-1e9];L[k][0]=Math.min(L[k][0],r.left);L[k][1]=Math.max(L[k][1],r.right);}
+ const w=Object.values(L).map(a=>a[1]-a[0]);return{n:w.length,ratio:w.length?w[w.length-1]/Math.max(...w):1};}
+function evenOut(){document.querySelectorAll(".why dd,.statement p,.loupe p").forEach(el=>{el.style.maxWidth="";
+ const a=lineInfo(el);if(a.n<=6||a.ratio>=.4)return;const W=el.getBoundingClientRect().width;
+ for(let w=W-6;w>W*.8;w-=6){el.style.maxWidth=w+"px";const b=lineInfo(el);if(b.n===a.n&&b.ratio>=.5)return;if(b.n>a.n)break;}
+ el.style.maxWidth="";});}
+let eoT;addEventListener("resize",()=>{clearTimeout(eoT);eoT=setTimeout(evenOut,150);});
+document.fonts&&document.fonts.ready.then(evenOut);
+
+/* ---------- film modal (YouTube, in-page) ---------- */
+const dlg=$("film");let filmFrom=null;
+function openFilm(a){const T=I18N[lang],tall=a.dataset.ar==="9:16";
+ filmFrom=a;modalOpen=true;playing.slice().forEach(r=>r.release());
+ $("filmT").textContent=a.dataset.title;
+ const yt=$("filmYt");yt.href=a.href;yt.textContent=T.openYt+" ↗";$("filmX").setAttribute("aria-label",T.close);
+ dlg.classList.toggle("tall",tall);
+ $("filmBox").innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${a.dataset.yt}?autoplay=1&rel=0&playsinline=1" title="${esc(a.dataset.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+ document.documentElement.classList.add("modal");
+ dlg.showModal();$("filmX").focus();}
+dlg.addEventListener("close",()=>{$("filmBox").innerHTML="";modalOpen=false;document.documentElement.classList.remove("modal");
+ if(filmFrom&&filmFrom.isConnected)filmFrom.focus({preventScroll:true});filmFrom=null;fillSlots();});
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close();});
+$("filmX").onclick=()=>dlg.close();
+/* keep Tab inside the modal: YouTube link -> close -> player -> back to the link */
+dlg.addEventListener("keydown",e=>{if(e.key!=="Tab")return;
+ const f=[$("filmYt"),$("filmX"),dlg.querySelector("iframe")].filter(Boolean),i=f.indexOf(document.activeElement);
+ e.preventDefault();f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus();});
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-yt]");
+ if(!a||!a.dataset.yt||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button)return;
+ e.preventDefault();openFilm(a);});
 
 function render(){
  const T=I18N[lang];
@@ -864,7 +962,7 @@ function render(){
    <svg viewBox="0 0 260 180" preserveAspectRatio="none" aria-hidden="true"><path d="${LOOPS[i%3]}"/></svg></li>`}).join("");
  renderLoupe(false);
  renderContact();
- arm(document);measure();
+ arm(document);measure();evenOut();
 }
 
 /* ---------- strip: drag, arrows, progress, skew ---------- */
