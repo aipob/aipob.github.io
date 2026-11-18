@@ -393,6 +393,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;p
 html{overflow-x:clip}
 
 .gbig[hidden]{display:none}
+
+.sheet{align-items:start}
+.neg{align-self:start}
 </style>
 </head>
 <body>
@@ -532,7 +535,7 @@ const I18N={
   sub:"이야기가 먼저 움직이고, 기술은 그 뒤를 따라옵니다.",
   ctaSel:"대표작 보기 ↓",ctaContact:"연락하기",
   st1b:"2위",st1:"Kling Kreate 제57회",st2:"AI 영상 작업",st3:"실사 프로젝트",
-  selTitle:"대표작",worksTitle:"공모전과 <em>단편.</em>",
+  selTitle:"대표작",worksTitle:"주제가 주어질 때마다, <em>한 편의 이야기로.</em>",
   genTitle:"장르와 <em>표현 방식</em>",
   genIntro:"브랜드 광고, 서사 단편, 액션과 코미디까지. 장르에 맞춰 구도·움직임·소리를 설계하며 AI 영상을 제작합니다.",
   genLabel:"Genre reel · 개인 작업",genFoot:"모든 클립은 @ai.pob 피드에 올린 완성작에서 발췌한 3초 미리보기입니다.",genInsta:"인스타그램에서 전체 보기 ↗",
@@ -541,7 +544,7 @@ const I18N={
   aboutTitle:"카메라 뒤에서 <em>시작했습니다.</em>",
   about1:"조명을 세우고 카메라를 잡던 현장 경험이 지금의 구도와 빛 설계에 그대로 쓰입니다.",
   about2:"뮤직비디오 현장에서는 조명팀과 A캠을, 다큐멘터리에서는 감독을 맡았고, 인포머셜과 타임랩스를 기획·연출했습니다. AI 영상에서도 컷마다 빛이 어디서 오는지, 어떤 렌즈로 보는지를 먼저 정하고 시작합니다.",
-  contactTitle:"다음 장면을 <em>같이.</em>",draft:"v0.5",
+  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.5",
   watch:"영상 보기",runtime:"러닝타임",ratio:"비율",tools:"툴",year:"연도",
   fIntent:"의도",fDecision:"연출 판단",fWatch:"볼 지점",temp:"임시",play:"▶ 재생",
   idle:"단계 위에 커서를 올리면 내용이 재생됩니다",hint:"프레임을 고르면 확대경에 표시됩니다",
@@ -554,7 +557,7 @@ const I18N={
   sub:"Story first. The tools follow.",
   ctaSel:"See selected work ↓",ctaContact:"Contact",
   st1b:"2nd",st1:"Kling Kreate #57",st2:"AI film works",st3:"Live-action projects",
-  selTitle:"Selected work",worksTitle:"Contests and <em>shorts.</em>",
+  selTitle:"Selected work",worksTitle:"Every brief becomes <em>a story.</em>",
   genTitle:"Genres and <em>styles</em>",
   genIntro:"Brand ads, narrative shorts, action and comedy. I design framing, motion and sound to fit each genre.",
   genLabel:"Genre reel · personal work",genFoot:"Every clip is a three-second preview from a finished film on the @ai.pob feed.",genInsta:"See them all on Instagram ↗",
@@ -563,7 +566,7 @@ const I18N={
   aboutTitle:"It started <em>behind the camera.</em>",
   about1:"Time spent rigging lights and operating camera now shapes how I compose and light every AI shot.",
   about2:"I ran lighting and A-camera on a music video, directed a documentary, and planned and directed an infomercial and a timelapse. In AI work I still start each shot by deciding where the light comes from and which lens it is seen through.",
-  contactTitle:"The next scene, <em>together.</em>",draft:"v0.5",
+  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.5",
   watch:"Watch the film",runtime:"Runtime",ratio:"Ratio",tools:"Tools",year:"Year",
   fIntent:"Intent",fDecision:"Direction",fWatch:"Watch for",temp:"TEMP",play:"▶ Play",
   idle:"Hover a stage to play it",hint:"Pick a frame to see it under the loupe",
@@ -625,6 +628,7 @@ const C=(id,ko,kl,en,el,o={})=>({id,src:`clips/${id}.mp4`,poster:`clips/${id}.jp
 const GENRES=[
  {id:"pov",ko:"사물·체험 POV",en:"Object & first-person POV",clips:[
   C("vending","자판기 POV","자판기 속 시점으로 바라본 하루.","Vending Machine POV","A day seen from inside a vending machine."),
+  C("karaoke","노래방 POV","노래방 마이크 앞에 선 손님들의 시점.","Karaoke POV","The guests at a karaoke mic, from the mic's point of view."),
   C("pigeon","비둘기의 하루","뉴욕 비둘기의 1인칭으로 본 도시.","A Pigeon's Day","The city through a New York pigeon's eyes."),
   C("mosquito","모기 POV","어느 집에서 하루를 사는 모기의 시점.","Mosquito POV","A day in one home, from a mosquito's point of view."),
   C("sheep","세차장 양 POV","세차장을 통과하는 양의 1인칭.","Car-wash Sheep POV","A sheep's ride through a car wash."),
