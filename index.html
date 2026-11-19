@@ -545,6 +545,10 @@ dialog.film.tall .fbox{aspect-ratio:9/16;min-height:0;width:max(200px,min(100%,c
 @media (max-width:520px){#process .note{padding:22px 20px;margin-top:40px}}
 
 @media (max-width:520px){#process .note{text-wrap:pretty}}
+
+/* v0.7.8: desktop note breaks at sentence ends */
+@media (min-width:768px){#process .note{max-width:72ch}}
+@media (max-width:767px){#process .note br.pc{display:none}}
 </style>
 </head>
 <body>
@@ -700,11 +704,11 @@ const I18N={
   procTitle:"장면이 만들어지는 <em>순서</em>",
   caseK:"Case · 을지로 언더그라운드",caseIntro:"3D 프리비즈(움직임과 카메라를 미리 확인하는 <span class=\"nw\">영상)로</span> 동선과 타이밍을 정하고, 생성 결과를 보며 동작이 가장 잘 읽히는 거리와 높이로 구도를 다시 잡았습니다.",caseHint:"가운데 손잡이를 좌우로 움직여 비교해 보세요.",vtPv:"프리비즈 전체",vtFn:"완성본 전체",vtMix:(a,b)=>`프리비즈 ${a}%, 완성본 ${b}%`,cPlan:"프리비즈",cChange:"PREVIZ → FINAL",cWhy:"이유",
   caseCmp:"프리비즈와 완성본 비교",caseShow:"장면 선택",stepLabel:"제작 5단계 · 누르면 내용이 열립니다",
-  cross:"작업마다 기획부터 후반까지 단계별 체크리스트를 두고, 두 AI 에이전트의 교차 검증과 직접 검수를 거쳐 완성합니다. 작업이 끝나면 잘된 점과 아쉬운 점을 <span class=\"nw\">프롬프트·구도·사운드</span> 항목별로 회고 노트에 남기고, <span class=\"nw\">반복된 문제는</span> 작업 기준표와 프롬프트 체크리스트에 규칙으로 추가합니다. 다음 작업은 갱신된 기준표를 기획 단계부터 적용해 시작합니다.",
+  cross:"작업마다 기획부터 후반까지 단계별 체크리스트를 두고, 영상 기획·연출처럼 교차 검증이 필요한 단계는 두 AI 에이전트로 검토한 뒤 제가 최종 검수합니다.<br class=\"pc\"> 작업이 끝나면 잘된 점과 아쉬운 점을 <span class=\"nw\">프롬프트·구도·사운드</span> 항목별로 회고 노트에 남기고,<br class=\"pc\"> <span class=\"nw\">반복된 문제는</span> 작업 기준표와 프롬프트 체크리스트에 규칙으로 추가합니다.<br class=\"pc\"> 다음 작업은 갱신된 기준표를 기획 단계부터 적용해 시작합니다.",
   aboutTitle:"카메라 뒤에서 <em>시작했습니다.</em>",
   about1:"조명을 세우고 카메라를 잡던 현장 경험이 지금의 구도와 빛 설계에 그대로 쓰입니다.",
   about2:"뮤직비디오 현장에서는 조명팀과 A캠을, 다큐멘터리에서는 감독을 맡았고, 인포머셜과 타임랩스를 기획·연출했습니다. AI 영상에서도 프롬프트를 쓰기 전에 광원의 방향과 색온도, 화각과 카메라 높이를 실제 촬영처럼 먼저 설계합니다. 숲속 브이로그에는 부드러운 자연광을, 지하 링의 액션에는 대비가 강한 인공광을 쓰는 식으로 작품의 주제마다 빛과 렌즈를 다르게 세팅하고, 컷이 바뀌어도 조명의 연속성이 유지되도록 맞춥니다.",
-  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.7.7",
+  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.7.8",
   watch:"영상 보기",runtime:"러닝타임",ratio:"비율",tools:"툴",year:"연도",
   fIntent:"의도",fDecision:"연출 판단",fWatch:"볼 지점",temp:"임시",play:"▶ 재생",
   idle:"단계를 누르면 내용이 열립니다",hint:"프레임을 고르면 확대경에 표시됩니다",
@@ -724,11 +728,11 @@ const I18N={
   procTitle:"How a scene gets <em>made</em>",
   caseK:"Case · Euljiro Underground",caseIntro:"Blocking and timing were set in a 3D previz (a rough pass to check movement and camera); once the shots were generated, I reframed each one at the distance and height where the action reads best.",caseHint:"Move the handle left or right to compare the two frames.",vtPv:"Previz only",vtFn:"Final only",vtMix:(a,b)=>`Previz ${a}%, final ${b}%`,cPlan:"Previz",cChange:"PREVIZ → FINAL",cWhy:"Why",
   caseCmp:"Compare previz and final",caseShow:"Choose a scene",stepLabel:"Five stages · tap to open",
-  cross:"Every project runs on a stage-by-stage checklist from planning to post, with cross-checks by two AI agents and my own final review. Afterwards I log what worked and what didn't by prompt, framing and sound; recurring problems become new rules in my working standards and prompt checklist, and the next project applies that updated standard from the planning stage.",
+  cross:"Every project runs on a stage-by-stage checklist from planning to post. Where a cross-check matters most, especially in planning and direction, two AI agents review the work before my final check. Afterwards I log what worked and what didn't by prompt, framing and sound; recurring problems become new rules in my working standards and prompt checklist, and the next project applies that updated standard from the planning stage.",
   aboutTitle:"It started <em>behind the camera.</em>",
-  about1:"Time spent rigging lights and operating cameras now shapes how I compose and light every AI shot.",
-  about2:"I worked on the lighting crew and operated A-camera on a music video, directed a documentary, and planned and directed an infomercial and a timelapse. In AI work I design key-light direction, color temperature, focal length and camera height before writing a prompt, the way I would plan a shoot. Soft natural light for a forest vlog, hard high-contrast practicals for an underground fight: the light and lens change with each film's subject, and lighting stays continuous from cut to cut.",
-  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.7.7",
+  about1:"My experience on set informs how I frame and light AI-generated scenes.",
+  about2:"I worked on the lighting crew and operated A-camera on a music video, directed a documentary, and planned and directed an infomercial and a timelapse. Before writing prompts, I plan the direction and color temperature of the light, the field of view and the camera height. Soft natural light for the forest vlog, high-contrast artificial light for the underground fight: the setup changes with each film's subject, and I check that the lighting stays consistent across cuts.",
+  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.7.8",
   watch:"Watch the film",runtime:"Runtime",ratio:"Ratio",tools:"Tools",year:"Year",
   fIntent:"Intent",fDecision:"Direction",fWatch:"Watch for",temp:"TEMP",play:"▶ Play",
   idle:"Choose a stage to open it",hint:"Pick a frame to see it under the loupe",
