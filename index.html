@@ -533,6 +533,16 @@ dialog.film.tall .fbox{aspect-ratio:9/16;min-height:0;width:max(200px,min(100%,c
 .card{display:flex;flex-direction:column;width:min-content}
 .card>h3,.card>p{width:0;min-width:100%}
 .card>.line{width:0;min-width:min(100%,36ch);max-width:none}
+
+/* v0.7.6: process note as a centered viewfinder card (corner brackets, no box) */
+#process .note{--c:var(--accent);border:0;margin:56px auto 0;max-width:62ch;padding:26px 34px;text-align:center;text-wrap:balance;font-size:.95rem;line-height:1.75;
+ background:
+  linear-gradient(var(--c),var(--c)) top left/18px 1.5px no-repeat,linear-gradient(var(--c),var(--c)) top left/1.5px 18px no-repeat,
+  linear-gradient(var(--c),var(--c)) top right/18px 1.5px no-repeat,linear-gradient(var(--c),var(--c)) top right/1.5px 18px no-repeat,
+  linear-gradient(var(--c),var(--c)) bottom left/18px 1.5px no-repeat,linear-gradient(var(--c),var(--c)) bottom left/1.5px 18px no-repeat,
+  linear-gradient(var(--c),var(--c)) bottom right/18px 1.5px no-repeat,linear-gradient(var(--c),var(--c)) bottom right/1.5px 18px no-repeat}
+#process .note::before{content:"NOTE";display:block;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.2em;color:var(--accent);margin-bottom:14px}
+@media (max-width:520px){#process .note{padding:22px 20px;margin-top:40px}}
 </style>
 </head>
 <body>
@@ -688,11 +698,11 @@ const I18N={
   procTitle:"장면이 만들어지는 <em>순서</em>",
   caseK:"Case · 을지로 언더그라운드",caseIntro:"3D 프리비즈(움직임과 카메라를 미리 확인하는 <span class=\"nw\">영상)로</span> 동선과 타이밍을 정하고, 생성 결과를 보며 동작이 가장 잘 읽히는 거리와 높이로 구도를 다시 잡았습니다.",caseHint:"가운데 손잡이를 좌우로 움직여 비교해 보세요.",vtPv:"프리비즈 전체",vtFn:"완성본 전체",vtMix:(a,b)=>`프리비즈 ${a}%, 완성본 ${b}%`,cPlan:"프리비즈",cChange:"PREVIZ → FINAL",cWhy:"이유",
   caseCmp:"프리비즈와 완성본 비교",caseShow:"장면 선택",stepLabel:"제작 5단계 · 누르면 내용이 열립니다",
-  cross:"작업마다 기획부터 후반까지 단계별 체크리스트를 두고, 두 AI 에이전트의 교차 검증과 직접 검수를 거쳐 완성합니다. 작업이 끝나면 잘된 점과 아쉬운 점을 <span class=\"nw\">프롬프트·구도·사운드</span> 항목별로 회고 노트에 남기고, 반복된 문제는 작업 기준표와 프롬프트 체크리스트에 규칙으로 추가합니다. 다음 작업은 갱신된 기준표를 기획 단계부터 적용해 시작합니다.",
+  cross:"작업마다 기획부터 후반까지 단계별 체크리스트를 두고, 두 AI 에이전트의 교차 검증과 직접 검수를 거쳐 완성합니다. 작업이 끝나면 잘된 점과 아쉬운 점을 <span class=\"nw\">프롬프트·구도·사운드</span> 항목별로 회고 노트에 남기고, 반복된 문제는 작업 기준표와 프롬프트 체크리스트에 규칙으로 추가합니다. 다음 작업은 갱신된 기준표를 <span class=\"nw\">기획 단계부터 적용해 시작합니다.</span>",
   aboutTitle:"카메라 뒤에서 <em>시작했습니다.</em>",
   about1:"조명을 세우고 카메라를 잡던 현장 경험이 지금의 구도와 빛 설계에 그대로 쓰입니다.",
   about2:"뮤직비디오 현장에서는 조명팀과 A캠을, 다큐멘터리에서는 감독을 맡았고, 인포머셜과 타임랩스를 기획·연출했습니다. AI 영상에서도 프롬프트를 쓰기 전에 광원의 방향과 색온도, 화각과 카메라 높이를 실제 촬영처럼 먼저 설계합니다. 숲속 브이로그에는 부드러운 자연광을, 지하 링의 액션에는 대비가 강한 인공광을 쓰는 식으로 작품의 주제마다 빛과 렌즈를 다르게 세팅하고, 컷이 바뀌어도 조명의 연속성이 유지되도록 맞춥니다.",
-  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.7.5",
+  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.7.6",
   watch:"영상 보기",runtime:"러닝타임",ratio:"비율",tools:"툴",year:"연도",
   fIntent:"의도",fDecision:"연출 판단",fWatch:"볼 지점",temp:"임시",play:"▶ 재생",
   idle:"단계를 누르면 내용이 열립니다",hint:"프레임을 고르면 확대경에 표시됩니다",
@@ -716,7 +726,7 @@ const I18N={
   aboutTitle:"It started <em>behind the camera.</em>",
   about1:"Time spent rigging lights and operating cameras now shapes how I compose and light every AI shot.",
   about2:"I worked on the lighting crew and operated A-camera on a music video, directed a documentary, and planned and directed an infomercial and a timelapse. In AI work I design key-light direction, color temperature, focal length and camera height before writing a prompt, the way I would plan a shoot. Soft natural light for a forest vlog, hard high-contrast practicals for an underground fight: the light and lens change with each film's subject, and lighting stays continuous from cut to cut.",
-  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.7.5",
+  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.7.6",
   watch:"Watch the film",runtime:"Runtime",ratio:"Ratio",tools:"Tools",year:"Year",
   fIntent:"Intent",fDecision:"Direction",fWatch:"Watch for",temp:"TEMP",play:"▶ Play",
   idle:"Choose a stage to open it",hint:"Pick a frame to see it under the loupe",
@@ -1068,7 +1078,7 @@ function lineInfo(el){const rg=document.createRange();rg.selectNodeContents(el);
  const w=[...L.keys()].sort((x,y)=>x-y).map(k=>L.get(k)[1]-L.get(k)[0]);return{n:w.length,ratio:w.length?w[w.length-1]/Math.max(...w):1};}
 /* Steps in only when a paragraph has 7+ lines AND its last line is under 40% of the longest;
    then narrows it 6px at a time (same line count) until the last line reaches 50%. */
-function evenOut(){document.querySelectorAll(".why dd,.statement p,.loupe p,#process .note").forEach(el=>{el.style.maxWidth="";
+function evenOut(){document.querySelectorAll(".why dd,.statement p,.loupe p").forEach(el=>{el.style.maxWidth="";
  const a=lineInfo(el);if(a.n<=6||a.ratio>=.4)return;const W=el.getBoundingClientRect().width;
  for(let w=W-6;w>W*.8;w-=6){el.style.maxWidth=w+"px";const b=lineInfo(el);if(b.n===a.n&&b.ratio>=.5)return;if(b.n>a.n)break;}
  el.style.maxWidth="";});}
