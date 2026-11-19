@@ -505,6 +505,26 @@ dialog.film.tall .fbox{aspect-ratio:9/16;min-height:0;width:max(200px,min(100%,c
 .chg .why{margin-top:8px;color:var(--soft)}
 .chg .why i{font-style:normal;font-family:var(--f-mono);font-size:.64rem;letter-spacing:.12em;color:var(--grease);margin-right:8px}
 .cside .tc+b{margin-bottom:2px}
+
+/* ---------- v0.7.2 (R40–R46) ---------- */
+/* R41: one-line hint right above the compare frame */
+.cvw{min-width:0}
+.chint{text-wrap:balance;margin:0 0 8px;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.04em;color:var(--soft)}
+.chint::before{content:"◀ ▶";margin-right:8px;font-size:.6rem;letter-spacing:.2em;color:var(--accent)}
+.cv .clab[hidden]{display:none}
+/* R42: small labels on the change box in a light warm tone (red stays on the rule and underline) */
+.chg .chx .k,.chg .why i{color:#f2b8a2}
+/* R45: larger role text, stronger scrim behind text, unselected stills a touch brighter */
+.fr .ti small{font-size:.72rem;letter-spacing:.04em;color:rgba(248,238,222,.92)}
+.fr button::after{background:linear-gradient(180deg,rgba(0,0,0,.28) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 45%,rgba(0,0,0,.82) 100%)}
+.fr .still{filter:grayscale(.28) brightness(.95)}
+/* R46: runtime sits with the play button */
+.take .go{display:flex;align-items:center;flex-wrap:wrap;gap:10px 16px}
+.take .go .rt{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.06em;color:var(--fg);font-variant-numeric:tabular-nums}
+.take .go .rt .k{color:var(--muted);margin-right:4px}
+
+/* keep a closing parenthesis and its particle on one line */
+.nw{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -658,13 +678,13 @@ const I18N={
   genIntro:"브랜드 광고, 서사 단편, 액션과 코미디까지. 장르에 맞춰 구도·움직임·소리를 설계하며 AI 영상을 제작합니다.",
   genLabel:"Genre reel · 개인 작업",genFoot:"개인 작업에서 발췌한 짧은 미리보기입니다.",genInsta:"인스타그램에서 전체 보기 ↗",
   procTitle:"장면이 만들어지는 <em>순서</em>",
-  caseK:"Case · 을지로 언더그라운드",caseIntro:"3D 프리비즈로 동선과 타이밍을 먼저 정하고, 실제 생성 결과를 보며 동작이 가장 잘 읽히는 거리와 높이로 구도를 다시 잡았습니다. 슬라이더를 움직여 비교해 보세요.",cPlan:"프리비즈",cChange:"PREVIZ → FINAL",cWhy:"이유",
+  caseK:"Case · 을지로 언더그라운드",caseIntro:"3D 프리비즈(동선과 카메라를 미리 확인하는 <span class=\"nw\">영상)로</span> 동선과 타이밍을 정하고, 생성 결과를 보며 동작이 가장 잘 읽히는 거리와 높이로 구도를 다시 잡았습니다.",caseHint:"가운데 손잡이를 좌우로 움직여 비교해 보세요.",vtPv:"프리비즈 전체",vtFn:"완성본 전체",vtMix:(a,b)=>`프리비즈 ${a}%, 완성본 ${b}%`,cPlan:"프리비즈",cChange:"PREVIZ → FINAL",cWhy:"이유",
   caseCmp:"프리비즈와 완성본 비교",caseShow:"장면 선택",stepLabel:"제작 5단계 · 누르면 내용이 열립니다",
   cross:"현재는 기획부터 후반까지 작업별 검토 기준을 세우고, 두 AI 에이전트의 교차 검토와 직접 검수를 함께 진행합니다. 구체적인 툴과 제작 과정은 문의 시 안내합니다.",
   aboutTitle:"카메라 뒤에서 <em>시작했습니다.</em>",
   about1:"조명을 세우고 카메라를 잡던 현장 경험이 지금의 구도와 빛 설계에 그대로 쓰입니다.",
   about2:"뮤직비디오 현장에서는 조명팀과 A캠을, 다큐멘터리에서는 감독을 맡았고, 인포머셜과 타임랩스를 기획·연출했습니다. AI 영상에서도 컷마다 빛이 어디서 오는지, 어떤 렌즈로 보는지를 먼저 정하고 시작합니다.",
-  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.7.1",
+  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.7.2",
   watch:"영상 보기",runtime:"러닝타임",ratio:"비율",tools:"툴",year:"연도",
   fIntent:"의도",fDecision:"연출 판단",fWatch:"볼 지점",temp:"임시",play:"▶ 재생",
   idle:"단계를 누르면 내용이 열립니다",hint:"프레임을 고르면 확대경에 표시됩니다",
@@ -682,13 +702,13 @@ const I18N={
   genIntro:"Brand ads, narrative shorts, action and comedy. I design framing, motion and sound to fit each genre.",
   genLabel:"Genre reel · personal work",genFoot:"Short previews taken from personal work.",genInsta:"See them all on Instagram ↗",
   procTitle:"How a scene gets <em>made</em>",
-  caseK:"Case · Euljiro Underground",caseIntro:"Blocking and timing were set in 3D previz first; once the shots were generated, I reframed each one at the distance and height where the action reads best. Drag the slider to compare.",cPlan:"Previz",cChange:"PREVIZ → FINAL",cWhy:"Why",
+  caseK:"Case · Euljiro Underground",caseIntro:"Blocking and timing were set in a 3D previz (a rough pass to check movement and camera); once the shots were generated, I reframed each one at the distance and height where the action reads best.",caseHint:"Move the handle left or right to compare the two frames.",vtPv:"Previz only",vtFn:"Final only",vtMix:(a,b)=>`Previz ${a}%, final ${b}%`,cPlan:"Previz",cChange:"PREVIZ → FINAL",cWhy:"Why",
   caseCmp:"Compare previz and final",caseShow:"Choose a scene",stepLabel:"Five stages · tap to open",
   cross:"Today every stage, from planning to post, runs against a written review checklist, with cross-review by two AI agents plus my own final check. Ask me for the specific tools and process.",
   aboutTitle:"It started <em>behind the camera.</em>",
   about1:"Time spent rigging lights and operating camera now shapes how I compose and light every AI shot.",
   about2:"I ran lighting and A-camera on a music video, directed a documentary, and planned and directed an infomercial and a timelapse. In AI work I still start each shot by deciding where the light comes from and which lens it is seen through.",
-  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.7.1",
+  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.7.2",
   watch:"Watch the film",runtime:"Runtime",ratio:"Ratio",tools:"Tools",year:"Year",
   fIntent:"Intent",fDecision:"Direction",fWatch:"Watch for",temp:"TEMP",play:"▶ Play",
   idle:"Choose a stage to open it",hint:"Pick a frame to see it under the loupe",
@@ -738,7 +758,7 @@ const WORKS=[
   ko:{t:"삭제하시겠습니까",s:"철강 AI 영상광고 공모전",line:"'철강을 삭제하시겠습니까?' 앞에서 지울 수 없는 것들을 보여주는 30초 광고.",credit:"1인 총괄 제작"},
   en:{t:"Delete Steel?",s:"Steel AI ad contest",line:"A 30-second ad that answers “Delete steel?” with everything that cannot be erased.",credit:"Solo production"}},
  {id:"kaia",featured:0,poster:"img/kaia.jpg",posterAspect:"16/9",videoAspect:"16:9",rt:"02:27",year:"2026",tools:["Nano Banana 2·Pro","GPT Image 2.0","Kling 3.0·O3","ElevenLabs"],url:"https://youtu.be/RGf3nTG_td0",
-  ko:{t:"KAIA, 미래가 아닌 현재",s:"졸업작품 · UAM 브랜드 숏필름",line:"도심항공교통(UAM)을 먼 미래가 아닌 지금의 이야기로 그린 브랜드 숏필름.",credit:"팀 3인 · 총괄 제작"},
+  ko:{t:"KAIA, 미래가 아닌 현재",s:"졸업작품 · UAM 브랜드 숏필름",line:"도심항공교통(UAM)⁠을 먼 미래가 아닌 지금의 이야기로 그린 브랜드 숏필름.",credit:"팀 3인 · 총괄 제작"},
   en:{t:"KAIA, Not the Future but Now",s:"Graduation film · UAM brand short",line:"A brand short that treats urban air mobility as today's story, not a distant future.",credit:"Three-person team · lead producer"}}
 ];
 const PERSONAL={id:"boxing",poster:"img/boxing-ko.jpg",posterAspect:"16/9",videoAspect:"16:9",rt:"00:30",year:"2026",tools:["GPT Image","Newtake 3D Director","Seedance 2.5"],url:"https://www.instagram.com/reel/Dfqok8vBlyJ/",
@@ -873,9 +893,9 @@ function takeHTML(w,k,label){
     <div>${w.award?`<span class="badge">★ ${esc(c.s)}</span>`:`<span class="eyebrow">${esc(c.s)}</span>`}<h3>${esc(c.t)}</h3></div>
     <span class="credit">${c.credit}</span>
     ${c.hook?`<p class="hook">${c.hook}</p>`:""}
-    <div class="go">${btn}</div>
+    <div class="go">${btn}<span class="rt"><span class="k">${T.runtime}</span> ${w.rt}</span></div>
     <dl class="why"><div><dt>${T.fIntent}</dt><dd>${esc(c.intent)}</dd></div><div><dt>${T.fDecision}</dt><dd>${esc(c.decision)}</dd></div><div><dt>${T.fWatch}</dt><dd>${esc(c.watch)}</dd></div></dl>
-    <dl class="specs"><dt>${T.runtime}</dt><dd>${w.rt}</dd><dt>${T.ratio}</dt><dd>${w.videoAspect}</dd><dt>${T.tools}</dt><dd>${w.tools.map(esc).join(" · ")}</dd><dt>${T.year}</dt><dd>${w.year}</dd></dl></div></article>`;
+    <dl class="specs"><dt>${T.ratio}</dt><dd>${w.videoAspect}</dd><dt>${T.tools}</dt><dd>${w.tools.map(esc).join(" · ")}</dd><dt>${T.year}</dt><dd>${w.year}</dd></dl></div></article>`;
 }
 function renderStrip(){
  const T=I18N[lang];
@@ -905,15 +925,22 @@ function renderCase(){
  const T=I18N[lang],c=CASE[caseOn];
  $("case").innerHTML=`<div class="ck"><span class="k">${T.caseK}</span><p>${T.caseIntro}</p></div>
   <figure class="cmp" style="--x:${caseX}%">
-   <div class="cv" data-frame="PREVIZ / FINAL">
+   <div class="cvw"><p class="chint">${T.caseHint}</p>
+   <div class="cv">
     <img class="cp" src="${c.pv}" alt="" width="1200" height="675"><img class="cf" src="${c.fn}" alt="" width="1200" height="675">
     <span class="clab lp" aria-hidden="true">PREVIZ</span><span class="clab lf" aria-hidden="true">FINAL</span><i class="bar" aria-hidden="true"></i>
-    <input type="range" min="0" max="100" value="${caseX}" aria-label="${T.caseCmp}: ${esc(c[lang][0])}"></div>
+    <input type="range" min="0" max="100" value="${caseX}" aria-label="${T.caseCmp}: ${esc(c[lang][0])}"></div></div>
    <figcaption class="cside"><span class="tc">TC ${c.tc} · 0${caseOn+1} / 0${CASE.length}</span><b>${esc(c[lang][0])}</b>
     <span class="chg"><span class="pl"><span class="k">${T.cPlan}</span><span class="t">${esc(c[lang][1])}</span></span>
      <span class="chx"><span class="k">${T.cChange}</span><span class="t"><mark class="gp">${esc(c[lang][2])}</mark></span><span class="why"><i>${T.cWhy}</i>${esc(c[lang][3])}</span></span></span>
     <span class="cthumbs" role="group" aria-label="${T.caseShow}">${CASE.map((x,i)=>`<button type="button" aria-pressed="${i===caseOn}" data-i="${i}"><img src="${x.fn}" alt="" loading="lazy"><span>0${i+1} ${esc(x[lang][0])}</span></button>`).join("")}</span></figcaption></figure>`;
 }
+/* R43: only the label of the image actually on screen; valuetext says what is showing.
+   --x = share of the previz (left of the handle). */
+function syncCase(){const cmp=$("case").querySelector(".cmp");if(!cmp)return;const T=I18N[lang],r=cmp.querySelector("input");
+ cmp.style.setProperty("--x",caseX+"%");r.value=caseX;
+ r.setAttribute("aria-valuetext",caseX>=100?T.vtPv:caseX<=0?T.vtFn:T.vtMix(caseX,100-caseX));
+ cmp.querySelector(".clab.lp").hidden=caseX<=0;cmp.querySelector(".clab.lf").hidden=caseX>=100;}
 function syncSteps(){
  document.querySelectorAll("#steps>li").forEach((li,j)=>{li.classList.toggle("on",j===active);li.querySelector("button").setAttribute("aria-expanded",j===active);});
  const tl=$("timeline");tl.classList.toggle("idle",active<0);
@@ -1046,7 +1073,7 @@ document.fonts&&document.fonts.ready.then(relayout);
 /* ---------- film modal (YouTube, in-page) ---------- */
 const dlg=$("film");let filmFrom=null;
 function openFilm(a){const T=I18N[lang],tall=a.dataset.ar==="9:16";
- filmFrom=a;modalOpen=true;playing.slice().forEach(r=>r.release());
+ filmFrom=a.tabIndex<0?(a.closest(".take")&&a.closest(".take").querySelector(".watch"))||a:a;modalOpen=true;playing.slice().forEach(r=>r.release());
  $("filmT").textContent=a.dataset.title;
  const yt=$("filmYt");yt.href=a.href;yt.textContent=T.openYt+" ↗";$("filmX").setAttribute("aria-label",T.close);
  dlg.classList.toggle("tall",tall);
@@ -1080,7 +1107,7 @@ function render(){
  renderStrip();
  renderGenres();
  $("steps").innerHTML=STEPS[lang].map((s,i)=>`<li data-i="${i}"><button type="button" id="st-${i}" aria-expanded="false" aria-controls="inl-${i}"><span class="n">0${i+1}</span><span class="h">${s[0]}</span><span class="alt">${s[1]}</span></button><div class="inl" id="inl-${i}">${detailList(i)}</div></li>`).join("");
- renderCase();
+ renderCase();syncCase();
  syncSteps();renderViewer(false);
  $("frames").innerHTML=CREDITS[lang].map((r,i)=>{const t=TONES[i%TONES.length];
   return `<li class="fr"><button type="button" id="fr-${i}" data-i="${i}" aria-pressed="false" aria-controls="loupe" data-frame="FR ${String(i+1).padStart(2,"0")}" style="--c1:${t[0]};--c2:${t[1]};--gx:${20+i*17%60}%;--gy:${25+i*13%50}%">
@@ -1148,8 +1175,8 @@ function setStep(i,toggle){
 }
 $("steps").addEventListener("click",e=>{const li=e.target.closest("li[data-i]");if(li)setStep(+li.dataset.i,true);});
 /* case compare: slider + scene buttons */
-$("case").addEventListener("input",e=>{if(e.target.type!=="range")return;caseX=+e.target.value;e.target.closest(".cmp").style.setProperty("--x",caseX+"%");});
-$("case").addEventListener("click",e=>{const b=e.target.closest(".cthumbs button");if(!b)return;caseOn=+b.dataset.i;renderCase();$("case").querySelector(`.cthumbs button[data-i="${caseOn}"]`).focus();});
+$("case").addEventListener("input",e=>{if(e.target.type!=="range")return;caseX=+e.target.value;syncCase();});
+$("case").addEventListener("click",e=>{const b=e.target.closest(".cthumbs button");if(!b)return;caseOn=+b.dataset.i;renderCase();syncCase();$("case").querySelector(`.cthumbs button[data-i="${caseOn}"]`).focus();});
 
 /* ---------- contact sheet ---------- */
 function pickFrame(i){if(i===frameOn)return;frameOn=i;renderLoupe(true);}
