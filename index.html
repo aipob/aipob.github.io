@@ -525,6 +525,9 @@ dialog.film.tall .fbox{aspect-ratio:9/16;min-height:0;width:max(200px,min(100%,c
 
 /* keep a closing parenthesis and its particle on one line */
 .nw{white-space:nowrap}
+
+/* v0.7.4: reason follows the change line without a label */
+.chg .why{margin-top:10px}
 </style>
 </head>
 <body>
@@ -680,11 +683,11 @@ const I18N={
   procTitle:"장면이 만들어지는 <em>순서</em>",
   caseK:"Case · 을지로 언더그라운드",caseIntro:"3D 프리비즈(움직임과 카메라를 미리 확인하는 <span class=\"nw\">영상)로</span> 동선과 타이밍을 정하고, 생성 결과를 보며 동작이 가장 잘 읽히는 거리와 높이로 구도를 다시 잡았습니다.",caseHint:"가운데 손잡이를 좌우로 움직여 비교해 보세요.",vtPv:"프리비즈 전체",vtFn:"완성본 전체",vtMix:(a,b)=>`프리비즈 ${a}%, 완성본 ${b}%`,cPlan:"프리비즈",cChange:"PREVIZ → FINAL",cWhy:"이유",
   caseCmp:"프리비즈와 완성본 비교",caseShow:"장면 선택",stepLabel:"제작 5단계 · 누르면 내용이 열립니다",
-  cross:"현재는 기획부터 후반까지 단계별 체크리스트를 두고, 두 AI 에이전트의 교차 검증과 직접 검수를 함께 진행합니다. 구체적인 툴과 제작 과정은 문의 시 안내합니다.",
+  cross:"작업마다 기획부터 후반까지 단계별 체크리스트를 두고, 두 AI 에이전트의 교차 검증과 직접 검수를 거쳐 완성합니다. 작업이 끝나면 잘된 점과 아쉬운 점을 <span class=\"nw\">프롬프트·구도·사운드</span> 항목별로 회고 노트에 남기고, 반복된 문제는 작업 기준표와 프롬프트 체크리스트에 규칙으로 추가합니다. 다음 작업은 갱신된 기준표를 기획 단계부터 적용해 시작합니다.",
   aboutTitle:"카메라 뒤에서 <em>시작했습니다.</em>",
   about1:"조명을 세우고 카메라를 잡던 현장 경험이 지금의 구도와 빛 설계에 그대로 쓰입니다.",
-  about2:"뮤직비디오 현장에서는 조명팀과 A캠을, 다큐멘터리에서는 감독을 맡았고, 인포머셜과 타임랩스를 기획·연출했습니다. AI 영상에서도 컷마다 빛이 어디서 오는지, 어떤 렌즈로 보는지를 먼저 정하고 시작합니다.",
-  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.7.3",
+  about2:"뮤직비디오 현장에서는 조명팀과 A캠을, 다큐멘터리에서는 감독을 맡았고, 인포머셜과 타임랩스를 기획·연출했습니다. AI 영상에서도 프롬프트를 쓰기 전에 광원의 방향과 색온도, 화각과 카메라 높이를 실제 촬영처럼 먼저 설계합니다. 숲속 브이로그에는 부드러운 자연광을, 지하 링의 액션에는 대비가 강한 인공광을 쓰는 식으로 작품의 주제마다 빛과 렌즈를 다르게 세팅하고, 컷이 바뀌어도 조명의 연속성이 유지되도록 맞춥니다.",
+  contactTitle:"함께 만들 <em>다음 장면</em>을 기다립니다.",draft:"v0.7.4",
   watch:"영상 보기",runtime:"러닝타임",ratio:"비율",tools:"툴",year:"연도",
   fIntent:"의도",fDecision:"연출 판단",fWatch:"볼 지점",temp:"임시",play:"▶ 재생",
   idle:"단계를 누르면 내용이 열립니다",hint:"프레임을 고르면 확대경에 표시됩니다",
@@ -704,11 +707,11 @@ const I18N={
   procTitle:"How a scene gets <em>made</em>",
   caseK:"Case · Euljiro Underground",caseIntro:"Blocking and timing were set in a 3D previz (a rough pass to check movement and camera); once the shots were generated, I reframed each one at the distance and height where the action reads best.",caseHint:"Move the handle left or right to compare the two frames.",vtPv:"Previz only",vtFn:"Final only",vtMix:(a,b)=>`Previz ${a}%, final ${b}%`,cPlan:"Previz",cChange:"PREVIZ → FINAL",cWhy:"Why",
   caseCmp:"Compare previz and final",caseShow:"Choose a scene",stepLabel:"Five stages · tap to open",
-  cross:"Today every stage, from planning to post, runs against a written review checklist, with cross-review by two AI agents plus my own final check. Ask me for the specific tools and process.",
+  cross:"Every project runs on a stage-by-stage checklist from planning to post, with cross-checks by two AI agents and my own final review. Afterwards I log what worked and what didn't by prompt, framing and sound; recurring problems become new rules in my working standards and prompt checklist, and the next project applies that updated standard from the planning stage.",
   aboutTitle:"It started <em>behind the camera.</em>",
   about1:"Time spent rigging lights and operating cameras now shapes how I compose and light every AI shot.",
-  about2:"I worked on the lighting crew and operated A-camera on a music video, directed a documentary, and planned and directed an infomercial and a timelapse. In AI work I still start each shot by deciding where the light comes from and which lens it is seen through.",
-  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.7.3",
+  about2:"I worked on the lighting crew and operated A-camera on a music video, directed a documentary, and planned and directed an infomercial and a timelapse. In AI work I design key-light direction, color temperature, focal length and camera height before writing a prompt, the way I would plan a shoot. Soft natural light for a forest vlog, hard high-contrast practicals for an underground fight: the light and lens change with each film's subject, and lighting stays continuous from cut to cut.",
+  contactTitle:"Let's make <em>the next scene</em> together.",draft:"v0.7.4",
   watch:"Watch the film",runtime:"Runtime",ratio:"Ratio",tools:"Tools",year:"Year",
   fIntent:"Intent",fDecision:"Direction",fWatch:"Watch for",temp:"TEMP",play:"▶ Play",
   idle:"Choose a stage to open it",hint:"Pick a frame to see it under the loupe",
@@ -730,7 +733,7 @@ const WORKS=[
    intent:"A vlog that follows the quiet handwork of an herbal witch living in a forest cabin. Sixteen shots take her from opening the window and foraging to brewing a potion and setting out on a delivery.",
    decision:"No music: latches, tea, mortar, wax and footsteps carry the rhythm of the day. Mostly locked-off framing and small movements keep attention on fingertips, rising steam and light passing through glass.",
    watch:"The cabin shifting from morning light to dusk, and the everyday sounds that follow each step of the potion."}},
- {id:"hetbahn",featured:2,poster:"img/hetbahn.jpg",posterAspect:"9/16",videoAspect:"9:16",rt:"00:59",year:"2026",tools:["Nano Banana 2·Pro","GPT Image 2.5","Seedream 5.0","Kling 3.0·O3","Seedance 2.5","ElevenLabs","Topaz","Suno"],url:"https://youtube.com/shorts/4UFfxdGyRVo",
+ {id:"hetbahn",featured:3,poster:"img/hetbahn.jpg",posterAspect:"9/16",videoAspect:"9:16",rt:"00:59",year:"2026",tools:["Nano Banana 2·Pro","GPT Image 2.5","Seedream 5.0","Kling 3.0·O3","Seedance 2.5","ElevenLabs","Topaz","Suno"],url:"https://youtube.com/shorts/4UFfxdGyRVo",
   ko:{t:"밥 한번, 진짜로",s:"햇반 AI 영상 공모전 · CJ제일제당 30주년",line:"'밥 한번 먹자'는 빈말이 10년 뒤 진짜 식탁이 되는 이야기.",credit:"1인 총괄 제작",hook:"순위 뉴스 형식 속에 두 친구의 재회를 숨겼습니다.",
    intent:"'언제 밥 한번 먹자'는 말이 10년 뒤 실제 식탁으로 이어지는 이야기입니다. 2036년 숏폼 뉴스 「햇반이 바꾼 일상 TOP 4」에 두 친구의 재회를 숨겼습니다.",
    decision:"4위 러닝 크루의 태호와 2위 집의 주인 민준을 먼저 등장시키고, 1위와 마지막 반전에서 두 사람이 이어지게 구성했습니다. 여럿이 함께하는 장면에서 혼자 머무는 집으로 시선을 좁힌 뒤, 두 친구가 마주 앉은 식탁으로 이어집니다.",
@@ -739,7 +742,7 @@ const WORKS=[
    intent:"“Let's grab a meal sometime” turns into a real dinner ten years later. The reunion of two friends is hidden inside a 2036 short-form news piece, “Top 4 ways Hetbahn changed daily life.”",
    decision:"Taeho appears in the 4th-place running crew and Minjun owns the 2nd-place home, so the 1st place and the final twist connect them. The film narrows from a crowd to a solitary home, then opens onto two friends at one table.",
    watch:"The doorbell after the anchor's twist teaser, and the moment two people who ate in separate spaces sit down at the same table."}},
- {id:"dapjang",featured:3,poster:"img/dapjang.jpg",posterAspect:"16/9",videoAspect:"16:9",rt:"02:15",year:"2026",tools:["Nano Banana 2·Pro","GPT Image 2.5","Kling 3.0·O3","Seedance 2.5","ElevenLabs","Topaz"],url:"https://youtu.be/wxBg-nbakkM",
+ {id:"dapjang",featured:2,poster:"img/dapjang.jpg",posterAspect:"16/9",videoAspect:"16:9",rt:"02:15",year:"2026",tools:["Nano Banana 2·Pro","GPT Image 2.5","Kling 3.0·O3","Seedance 2.5","ElevenLabs","Topaz"],url:"https://youtu.be/wxBg-nbakkM",
   ko:{t:"답장",s:"인성클린콘텐츠 UCC 공모전 · AI 윤리",line:"AI 자동 답장이 대신 말하는 동안 닿지 못한 할아버지의 마음.",hook:"<span class=\"ph\"><span class=\"ph\">메신저라는 오브제로</span> <span class=\"ph\">두 사람의 거리를 그리고,</span></span> <span class=\"ph\">반복되는 정면 구도로 빈자리가</span> <span class=\"ph\">채워지는 순간을 담았습니다.</span>",credit:"팀 2인 공동 제작<b>담당: 기획·연출 방향 설계, AI 제작 워크플로우 설계·프롬프팅</b>",
    intent:"손자를 대신하는 AI 자동 답장과 할아버지의 느린 문자를 통해, 편리한 소통에서 빠진 마음을 다룹니다. 재회한 두 사람이 음성 입력을 함께 써보는 장면으로, 기술이 자신의 말을 직접 전하는 수단이 될 수 있음을 보여줍니다.",
    decision:"작품의 연출 방향과 제작 흐름을 설계하고, 팀원과 함께 장면 단위로 다듬었습니다. 할아버지는 오른쪽, 손자는 왼쪽을 보도록 시선을 나눠 떨어진 공간에서도 마주 보게 했습니다. 혼자 먹는 저녁과 함께 먹는 식사는 같은 정면 대칭 구도로 반복해, 빈자리가 채워지는 변화를 보여줍니다.",
@@ -749,8 +752,8 @@ const WORKS=[
    decision:"I designed the film's direction and production flow, and refined it scene by scene with my teammate. The grandfather always faces right and the grandson left, so they face each other across separate spaces. Eating alone and eating together are framed in the same symmetrical wide shot, so the empty seat is visibly filled.",
    watch:"The grandson sitting across the table where the grandfather once ate alone, and their eyelines meeting in one frame."}},
  {id:"promise",featured:0,poster:"img/promise.jpg",posterAspect:"16/9",videoAspect:"16:9",rt:"01:00",year:"2026",tools:["GPT Image","Kling 3.0·O3","Seedance 2.5"],url:"https://youtu.be/WiZpGh9fusw",
-  ko:{t:"약속",s:"건설안전 공모전",line:"아이와 나눈 약속을 안전고리의 '찰칵' 소리로 이은 건설 안전 단편.",credit:"팀 2인 · 기획·연출 보조, AI 프롬프팅"},
-  en:{t:"The Promise",s:"Construction safety contest",line:"A safety short that ties a child's promise to the click of a safety hook.",credit:"Two-person team · planning and direction support, AI prompting"}},
+  ko:{t:"약속",s:"건설 추락사고 예방 콘텐츠 공모전",line:"아이와 나눈 약속을 안전고리의 '찰칵' 소리로 이은 건설 안전 단편.",credit:"팀 2인 · 기획·연출 보조, AI 프롬프팅"},
+  en:{t:"The Promise",s:"Construction Fall Prevention Content Contest",line:"A safety short that ties a child's promise to the click of a safety hook.",credit:"Two-person team · planning and direction support, AI prompting"}},
  {id:"dmts",featured:0,poster:"img/dmts.jpg",posterAspect:"9/16",videoAspect:"9:16",rt:"00:15",year:"2026",tools:["GPT Image 2.5","Nano Banana 2","Seedream 5.0","Seedance 2.5"],url:"https://youtube.com/shorts/dBlEYDQpz4c",
   ko:{t:"화면 밖으로",s:"디지털미디어테크쇼 AI 영상 공모전",line:"화면 속 미래가 LED를 지나 킨텍스로 이어지는 끊김 없는 15초 줌아웃.",credit:"1인 총괄 제작"},
   en:{t:"Out of the Screen",s:"Digital Media Tech Show AI film contest",line:"A 15-second single-move zoom out: from the future on screen, through an LED wall, to KINTEX.",credit:"Solo production"}},
@@ -932,7 +935,7 @@ function renderCase(){
     <input type="range" min="0" max="100" value="${caseX}" aria-label="${T.caseCmp}: ${esc(c[lang][0])}"></div></div>
    <figcaption class="cside"><span class="tc">TC ${c.tc} · 0${caseOn+1} / 0${CASE.length}</span><b>${esc(c[lang][0])}</b>
     <span class="chg"><span class="pl"><span class="k">${T.cPlan}</span><span class="t">${esc(c[lang][1])}</span></span>
-     <span class="chx"><span class="k">${T.cChange}</span><span class="t"><mark class="gp">${esc(c[lang][2])}</mark></span><span class="why"><i>${T.cWhy}</i>${esc(c[lang][3])}</span></span></span>
+     <span class="chx"><span class="k">${T.cChange}</span><span class="t"><mark class="gp">${esc(c[lang][2])}</mark></span><span class="why">${esc(c[lang][3])}</span></span></span>
     <span class="cthumbs" role="group" aria-label="${T.caseShow}">${CASE.map((x,i)=>`<button type="button" aria-pressed="${i===caseOn}" data-i="${i}"><img src="${x.fn}" alt="" loading="lazy"><span>0${i+1} ${esc(x[lang][0])}</span></button>`).join("")}</span></figcaption></figure>`;
 }
 /* R43: only the label of the image actually on screen; valuetext says what is showing.
@@ -1060,7 +1063,7 @@ function lineInfo(el){const rg=document.createRange();rg.selectNodeContents(el);
  const w=[...L.keys()].sort((x,y)=>x-y).map(k=>L.get(k)[1]-L.get(k)[0]);return{n:w.length,ratio:w.length?w[w.length-1]/Math.max(...w):1};}
 /* Steps in only when a paragraph has 7+ lines AND its last line is under 40% of the longest;
    then narrows it 6px at a time (same line count) until the last line reaches 50%. */
-function evenOut(){document.querySelectorAll(".why dd,.statement p,.loupe p").forEach(el=>{el.style.maxWidth="";
+function evenOut(){document.querySelectorAll(".why dd,.statement p,.loupe p,#process .note").forEach(el=>{el.style.maxWidth="";
  const a=lineInfo(el);if(a.n<=6||a.ratio>=.4)return;const W=el.getBoundingClientRect().width;
  for(let w=W-6;w>W*.8;w-=6){el.style.maxWidth=w+"px";const b=lineInfo(el);if(b.n===a.n&&b.ratio>=.5)return;if(b.n>a.n)break;}
  el.style.maxWidth="";});}
